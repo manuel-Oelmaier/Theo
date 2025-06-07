@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Theo Lernen</title>
+    <link rel="stylesheet" href="style.css">
+
+
+<!-- TODO think about if every scirpt needs to be loaded here !-->
+    <script type="text/x-mathjax-config">
+        window.MathJax = {
+        tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+    }
+    };
+    </script>
+
+    <script type="text/javascript" id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+
+    <script src="    https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+
+
+
+    <script  src="../dist/index.js" defer type="module"></script>
+    <script  src="../dist/questions.js" defer type="module"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <button id="exerciseButton">Üben</button>
+            <button id="lessonsButton">Prüfen</button>
+            Theoretische Informatik Übungseite
+        </nav>
+
+
+
+
+    </header>
+    <main>
+        <div id="overViewLessons" class="switchable">
+            So was genau ist jetzt eigentlich theoretische Informatik?
+
+            $| A |^2 = | A ^2 |$
+
+            Wir schauen uns 5 verschiedene Klassen an Sprachen an:
+            <ol>
+                <li>Regulär</li>
+                <li>kontextfrei</li>
+                <li>deterministisch Kontextfrei</li>
+                <li>kontext sensitiv</li>
+                <li>Rekursiv aufzählbar</li>
+
+            </ol>
+        </div>
+        <div id="exercisesOverViewDiv"  class="switchable" onload="loadCSV()"  >
+            <ul>
+                <li>    <button class="quizButtons" >Quiz: Reguläre und kontextfreie Sprachen </button>   </li>
+                <li>    <button class="quizButtons" >Quiz: Komplexität </button>    </li>
+                <li>    <button>Pumping Lemma</button>
+                <li>    <button>PotenzmengenKonstruktion: (NFA -> DFA)</button>    </li>
+                <li>    <button>Produktkonstruktion (Schnittmenge zweier DFAs)</button>   </li>
+            </ul>
+        </div>
+        <div id="questionDiv" class="switchable">
+            <h3 id="question">Hier sollte die Frage stehen!</h3>
+            <form>
+                <div>
+                    <input type="checkbox" id="answer1" name="answer" value="1">
+                    <label for="answer1" id="labelAnswer1">abcdefg</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="answer2" name="answer" value="1">
+                    <label for="answer2" id="labelAnswer2">abcdefg</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="answer3" name="answer" value="1">
+                    <label for="answer3" id="labelAnswer3">abcdefg</label>
+                </div>
+
+            </form>
+            <button id="checkAnswersButton">check</button>
+            <button id="nextQuestionButton">nächste Frage</button>
+            <button id="errorReportQuestionButton">Submit an issue with this question!</button>
+        </div>
+        <div>
+            <h3>Algorithms:</h3>
+            Here
+        </div>
+    </main>
+
+    <footer>
+
+    </footer>
+</body>
+
+
+
+</html>
