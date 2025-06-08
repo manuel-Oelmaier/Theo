@@ -80,7 +80,7 @@ export class NFA extends regularLanguage {
     }
 
     /**
-     * This function simply tries to simulate the word in the atomaton.
+     * This function simply tries to simulate the word in the automaton.
      * @param word
      * returns True if the state after running through the word is an Accepting one #
      * False if it isn't or an edge was massing somewhere along the way.
@@ -154,7 +154,7 @@ export class NFA extends regularLanguage {
     convertToDFA(): DFA {
         let matrix: string[][] = [];
         let dfaAcceptingStates = new Set<number>();
-
+        // iterate and create combination states ?
 
         for (let i = 0; i < this.adjacencyMatrix.length; i++) {
 
@@ -249,11 +249,36 @@ export class DFA extends NFA {
                 differentStates.add(new unorderPair(nonAcceptingState, acceptingState));
             }
         }
-        // iterate over pairs, if State a and State b of pair have a connection to the same marked State -> add it to marked.
-
+        // iterate over pairs, if State a and State b of pair have a edge marked with the same symbol of the Alphabet
+        // to the same marked State -> add it to marked.
+        // and remove from pairs ?.
+        let changed = true;
+        while (changed) {
+            changed = false;
+            pairs.forEach((pair: unorderPair) => {
+                for (const char of this.alphabet) {
+                    let connectedState = new unorderPair(this.findChar(char,pair.x),this.findChar(char,pair.y));
+                    if(differentStates.has(connectedState)){
+                        differentStates.add(pair);
+                        pairs.delete(pair);
+                        changed = true;
+                    }
+                }
+            })
+        }
+        // konstruct automaton out of
+        console.log(differentStates);
         return this;
     }
 
+    findChar(char: string,matrixrow:number): number {
+        for (let i = 0; i <this.adjacencyMatrix[matrixrow].length ; i++) {
+            if(this.adjacencyMatrix[matrixrow][i] === char){
+                return i;
+            }
+        }
+        return matrixrow;
+    }
     residualLanguages(): regularLanguage[]{
         return [];
     }
@@ -296,7 +321,7 @@ export class RegularExpression extends regularLanguage {
     }
 
     convertToDFA(): DFA {
-        throw new Error("Not implemented");
+        return this.convertToNFA().convertToDFA();
     }
 
     convertToNFA(): NFA {
