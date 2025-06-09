@@ -1,4 +1,4 @@
-import Papa from 'papaparse'
+ import  Papa from 'papaparse'
 
 let questions = processCSV();
 console.log(questions);
@@ -102,11 +102,11 @@ async function processCSV() {
             download: true,       // fetches the remote file
             header: true,         // if your CSV has headers
             skipEmptyLines: true, // skip empty lines
-            complete: (results) => {
+            complete: (results: any) => {
                 console.log(results);
                 return results;
             },
-            error: (err) => {
+            error: (err: any) => {
                 console.error('Parsing error:', err);
             }
         });
