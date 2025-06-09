@@ -1,23 +1,29 @@
- import  Papa from 'papaparse'
-
-let questions = processCSV();
-console.log(questions);
-let currentQuestion : MultipleChoiceQuestion;
+import Papa from 'papaparse'
 
 //TODO: look at web components and figure out if i want to make question & answer one ?
 class MultipleChoiceQuestion {
-    id:number;
-    QuestionHtml :string;
-    answers :Answer[] = [];
-    exam;
+    id: number;
+    QuestionHtml: string;
+    answers: Answer[];
+    exam: string;
 
-    constructor(id :number, Question:string, exam :string, answers:string[],) {
+    constructor(id: number, Question: string, exam: string, answers: string[],) {
         this.id = id;
         this.QuestionHtml = Question;
         this.exam = exam;
+        this.answers = [];
         for (let i = 0; i < 9; i += 3) {
             this.answers.push(new Answer(answers[i], answers[i + 1], answers[i + 2]));
         }
+    }
+
+    /**
+     *
+     * @param csv line
+     */
+    static from(csv:string[]): MultipleChoiceQuestion {
+        return new MultipleChoiceQuestion(parseInt(csv[0]), csv[1], csv[2], csv.slice(3,11));
+
     }
 
     getQuestionHTML() {
@@ -54,14 +60,15 @@ class MultipleChoiceQuestion {
 
 class Answer {
     AnswerHtml;
-    right : boolean;
-    explanation : string;
+    right: boolean;
+    explanation: string;
 
-    constructor(AnswerHtml :string, right :string, explanation:string) {
+    constructor(AnswerHtml: string, right: string, explanation: string) {
         this.AnswerHtml = AnswerHtml;
         this.right = (right === "true");
         this.explanation = explanation;
     }
+
 
     getAnswerHtml() {
         return this.AnswerHtml;
@@ -71,70 +78,61 @@ class Answer {
         return this.right;
     }
 
-    displayExplanation() {
-
-    }
-
     check() {
         return this.right;
     }
 }
 
+const questions: MultipleChoiceQuestion[] = await createQuestions();
+let currentQuestion: MultipleChoiceQuestion;
 
-async function loadCSV() {
-    const url = "Quiz_Regulare_und_Kontextfreiesprachen.csv";
-    return await fetch(url)
-        .then((res) => {
-            if (!res.ok) {
-                throw new Error(`CSVError: Unable to load CSV response from CSV`)
-            }
-            return res.text();
-        })
-}
 
 /**
  * possibly rewrite,very hideous
  */
-async function processCSV() {
-    const url = 'public/csv/Quiz_Komplexität.csv';
+async function processCSV(): Promise<object[]> {
+    const url = '/csv/Quiz_Komplexität.csv';
+
     return new Promise(resolve => {
         Papa.parse(url, {
-            download: true,       // fetches the remote file
-            header: true,         // if your CSV has headers
-            skipEmptyLines: true, // skip empty lines
+            download: true,
+            header: true,
             complete: (results: any) => {
-                console.log(results);
-                return results;
-            },
-            error: (err: any) => {
-                console.error('Parsing error:', err);
+                resolve(results.data);
             }
         });
-    })
+    });
 }
+
+async function createQuestions(): Promise<MultipleChoiceQuestion[]> {
+    let questions: MultipleChoiceQuestion[] = [];
+    let questionStrings: object[] = await processCSV();
+    console.log(questionStrings);
+    questionStrings.forEach(question => {
+        questions.push(MultipleChoiceQuestion.from(Object.values(question)));
+    });
+    return questions;
+
+}
+
 
 /**
  * random oder der Reihe nach durch?#
  */
-async function chooseNewQuestion() {
-    let questionList = await questions;
-    // @ts-ignore
-    return questionList[Math.floor(Math.random() * questionList.length)];
-}
-
-export async function getNewQuestion() {
-    let x = await chooseNewQuestion();
-    currentQuestion = x;
-    x.display();
-    //  await Mathjax.typesetPromise();
-
+export async function chooseNewQuestion(): Promise<void> {
+    let quest = questions;
+    console.log(quest);
+    let index = Math.floor(Math.random() * quest.length);
+    console.log(quest[index]);
+    currentQuestion = quest[index];
+    currentQuestion.display();
 }
 
 function checkQuestion() {
     currentQuestion.checkAnswers();
 }
 
-document.getElementById('nextQuestionButton')!.addEventListener('click', getNewQuestion);
+document.getElementById('nextQuestionButton')!.addEventListener('click', chooseNewQuestion);
 document.getElementById('checkAnswersButton')!.addEventListener('click', checkQuestion);
-// TODO previous questions button ??
+// TODO: statistics & history
 

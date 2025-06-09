@@ -1,4 +1,4 @@
-import {getNewQuestion} from "./questions";
+import {chooseNewQuestion} from "./questions";
 
 
 document.getElementById('exerciseButton')!.addEventListener('click', switchToExerciseOverview);
@@ -22,7 +22,7 @@ document.querySelectorAll('.quizButtons').forEach(button => {
 
 function switchToQuestions() {
     setAllDivsDisplayNone();
-    getNewQuestion();
+    chooseNewQuestion();
     document.getElementById('questionDiv')!.style.display = 'block';
 }
 
