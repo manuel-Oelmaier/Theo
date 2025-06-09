@@ -44,8 +44,8 @@ class MultipleChoiceQuestion {
 
 
         const question = document.createElement("h3");
-        katex.render(this.questionText,question,{
-            output:"html"
+        katex.render(this.questionText, question, {
+            output: "html"
         });
 
         const form = document.createElement("form");
@@ -80,7 +80,6 @@ class MultipleChoiceQuestion {
         } else {
             alert("falsch:\n" + message);
         }
-        //TODO find why this removes events from button ?
     }
 }
 
@@ -110,8 +109,8 @@ class Answer {
 
         const label = document.createElement("label");
         label.htmlFor = inputId;
-        katex.render(this.answerText,label,{
-            output:"html",
+        katex.render(this.answerText, label, {
+            output: "html",
             displayMode: true
         })
         const input = document.createElement("input");
@@ -127,15 +126,15 @@ class Answer {
 
 }
 
-const quiz: MultipleChoiceQuestion[] = await createQuestions();
+export const quiz_Komplex: MultipleChoiceQuestion[] = await createQuestions("/csv/Quiz_Komplexität.csv");
+export const quiz_Regular: MultipleChoiceQuestion[] = await createQuestions("csv/Quiz_Regulare_und_Kontextfreiesprachen.csv");
 let currentQuestion: MultipleChoiceQuestion;
+export let config= {
+    quiz: quiz_Komplex,
+}
 
 
-/**
- * possibly rewrite,very hideous
- */
-async function processCSV(): Promise<object[]> {
-    const url = '/csv/Quiz_Komplexität.csv';
+async function processCSV(url: string): Promise<object[]> {
 
     return new Promise(resolve => {
         Papa.parse(url, {
@@ -149,9 +148,9 @@ async function processCSV(): Promise<object[]> {
     });
 }
 
-async function createQuestions(): Promise<MultipleChoiceQuestion[]> {
+async function createQuestions(url: string): Promise<MultipleChoiceQuestion[]> {
     let questions: MultipleChoiceQuestion[] = [];
-    let questionStrings: object[] = await processCSV();
+    let questionStrings: object[] = await processCSV(url);
     questionStrings.forEach(question => {
         questions.push(MultipleChoiceQuestion.from(Object.values(question)));
     });
@@ -164,7 +163,7 @@ async function createQuestions(): Promise<MultipleChoiceQuestion[]> {
  * random oder der Reihe nach durch?#
  */
 export async function chooseNewQuestion(): Promise<void> {
-    let quest = quiz;
+    let quest = config.quiz;
     let index = Math.floor(Math.random() * quest.length);
     console.log(quest[index]);
     currentQuestion = quest[index];

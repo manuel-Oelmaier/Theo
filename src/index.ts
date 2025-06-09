@@ -1,7 +1,11 @@
-import {chooseNewQuestion} from "./quiz";
+import {chooseNewQuestion, config, quiz_Komplex, quiz_Regular} from "./quiz";
 
 
 document.getElementById('exerciseButton')!.addEventListener('click', switchToExerciseOverview);
+document.getElementById('lessonsButton')!.addEventListener('click', switchToLessonsOverview);
+document.getElementById("regularQuiz")!.addEventListener("click",switchRegularQuiz);
+document.getElementById("komplexQuiz")!.addEventListener("click",switchKomplexQuiz);
+
 
 function switchToExerciseOverview() {
     setAllDivsDisplayNone();
@@ -9,16 +13,20 @@ function switchToExerciseOverview() {
 
 }
 
-document.getElementById('lessonsButton')!.addEventListener('click', switchToLessonsOverview);
 
 function switchToLessonsOverview() {
     setAllDivsDisplayNone();
     document.getElementById('overViewLessons')!.style.display = 'flex';
 }
 
-document.querySelectorAll('.quizButtons').forEach(button => {
-    button.addEventListener('click', switchToQuestions);
-})
+function switchRegularQuiz(){
+    config.quiz = quiz_Regular;
+    switchToQuestions();
+}
+function switchKomplexQuiz(){
+    config.quiz = quiz_Komplex;
+    switchToQuestions();
+}
 
 function switchToQuestions() {
     setAllDivsDisplayNone();
