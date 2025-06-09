@@ -1,4 +1,4 @@
-import {chooseNewQuestion} from "./questions";
+import {chooseNewQuestion} from "./quiz";
 
 
 document.getElementById('exerciseButton')!.addEventListener('click', switchToExerciseOverview);
