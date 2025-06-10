@@ -1,7 +1,6 @@
 import Papa from 'papaparse'
 import katex from 'katex';
 
-//TODO also allow 2 or 4 Answers or just an arbitrary amount.
 class MultipleChoiceQuestion {
     id: number;
     questionText: string;
@@ -13,7 +12,10 @@ class MultipleChoiceQuestion {
         this.questionText = Question;
         this.exam = exam;
         this.answers = [];
-        for (let i = 0; i < 9; i += 3) {
+        for (let i = 0; i < 12; i += 3) {
+            if(answers[i]=== "") {
+                break;
+            }
             this.answers.push(new Answer(answers[i], answers[i + 1], answers[i + 2]));
         }
     }
@@ -23,7 +25,7 @@ class MultipleChoiceQuestion {
      * @param csv line
      */
     static from(csv: string[]): MultipleChoiceQuestion {
-        return new MultipleChoiceQuestion(parseInt(csv[0]), csv[1], csv[2], csv.slice(3, 11));
+        return new MultipleChoiceQuestion(parseInt(csv[0]), csv[1], csv[2], csv.slice(3, 14));
 
     }
 
@@ -127,7 +129,7 @@ class Answer {
 }
 
 export const quiz_Komplex: MultipleChoiceQuestion[] = await createQuestions("/csv/Quiz_Komplexität.csv");
-export const quiz_Regular: MultipleChoiceQuestion[] = await createQuestions("csv/Quiz_Regulare_und_Kontextfreiesprachen.csv");
+export const quiz_Regular: MultipleChoiceQuestion[] = await createQuestions("csv/Quiz_Regular.csv");
 let currentQuestion: MultipleChoiceQuestion;
 export let config= {
     quiz: quiz_Komplex,
