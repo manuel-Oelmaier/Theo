@@ -13,7 +13,7 @@ class MultipleChoiceQuestion {
         this.exam = exam;
         this.answers = [];
         for (let i = 0; i < 12; i += 3) {
-            if(answers[i]=== "") {
+            if (answers[i] === "") {
                 break;
             }
             this.answers.push(new Answer(answers[i], answers[i + 1], answers[i + 2]));
@@ -56,8 +56,13 @@ class MultipleChoiceQuestion {
             form.appendChild(this.answers[i].display(i));
         }
 
+        const feedback = document.createElement("div");
+        feedback.id = "feedback";
+
         questionDiv.appendChild(question);
         questionDiv.appendChild(form);
+        questionDiv.appendChild(feedback);
+
 
         return questionDiv;
 
@@ -72,15 +77,18 @@ class MultipleChoiceQuestion {
             let answer = document.getElementById('answer' + i) as HTMLInputElement;
             if (answer.checked !== this.answers[i].getRight()) {
                 correctAnswer = false;
-                message += "Answer " + i + "was: " + answer.checked + " but expected: " + this.answers[i].getRight() + "\n";
+                message += "Answer " + (i+1) + " was: " + answer.checked + " but expected: " + this.answers[i].getRight() + "\r\n";
             }
         }
 
 
         if (correctAnswer) {
-            alert("richtig:\n" + message);
+            document.getElementById("feedback")!.textContent = "richtig\n" + message
+            document.getElementById("feedback")!.style.color = "green"
         } else {
-            alert("falsch:\n" + message);
+            document.getElementById("feedback")!.textContent = "falsch: \r\n" + message
+            document.getElementById("feedback")!.style.color = "red"
+
         }
     }
 }
@@ -131,7 +139,7 @@ class Answer {
 export const quiz_Komplex: MultipleChoiceQuestion[] = await createQuestions("/csv/Quiz_Komplexität.csv");
 export const quiz_Regular: MultipleChoiceQuestion[] = await createQuestions("csv/Quiz_Regular.csv");
 let currentQuestion: MultipleChoiceQuestion;
-export let config= {
+export let config = {
     quiz: quiz_Komplex,
 }
 
