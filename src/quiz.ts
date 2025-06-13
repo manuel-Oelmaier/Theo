@@ -1,6 +1,8 @@
 import Papa from 'papaparse'
 import katex from 'katex';
+const examLinks = [
 
+]
 class MultipleChoiceQuestion {
     id: number;
     questionText: string;
@@ -68,7 +70,7 @@ class MultipleChoiceQuestion {
 
     }
 
-
+//TODO: solution button,+ explanation
     checkAnswers() {
         let correctAnswer = true;
         let message = ""
@@ -77,16 +79,16 @@ class MultipleChoiceQuestion {
             let answer = document.getElementById('answer' + i) as HTMLInputElement;
             if (answer.checked !== this.answers[i].getRight()) {
                 correctAnswer = false;
-                message += "Answer " + (i+1) + " was: " + answer.checked + " but expected: " + this.answers[i].getRight() + "\r\n";
+                message += "Answer " + (i+1) + " was: " + answer.checked + " but expected: " + this.answers[i].getRight() + "\n";
             }
         }
 
 
         if (correctAnswer) {
-            document.getElementById("feedback")!.textContent = "richtig\n" + message
+            document.getElementById("feedback")!.textContent = "Correct!\n" + message
             document.getElementById("feedback")!.style.color = "green"
         } else {
-            document.getElementById("feedback")!.textContent = "falsch: \r\n" + message
+            document.getElementById("feedback")!.textContent = "Wrong! \n" + message
             document.getElementById("feedback")!.style.color = "red"
 
         }

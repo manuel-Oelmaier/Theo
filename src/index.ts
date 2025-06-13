@@ -5,7 +5,7 @@ document.getElementById('exerciseButton')!.addEventListener('click', switchToExe
 document.getElementById('lessonsButton')!.addEventListener('click', switchToLessonsOverview);
 document.getElementById("regularQuiz")!.addEventListener("click",switchRegularQuiz);
 document.getElementById("komplexQuiz")!.addEventListener("click",switchKomplexQuiz);
-
+document.getElementById("displayNFA")!.addEventListener("click",switchTodDisplayDFA)
 
 function switchToExerciseOverview() {
     setAllDivsDisplayNone();
@@ -27,6 +27,10 @@ function switchKomplexQuiz(){
     config.quiz = quiz_Komplex;
     switchToQuestions();
 }
+function switchTodDisplayDFA(){
+
+}
+
 
 function switchToQuestions() {
     setAllDivsDisplayNone();

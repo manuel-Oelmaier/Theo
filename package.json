@@ -8,6 +8,7 @@
     "dev": "vite"
   },
   "dependencies": {
+    "@viz-js/viz": "^3.13.0",
     "katex": "^0.16.22",
     "papaparse": "^5.5.3"
   },

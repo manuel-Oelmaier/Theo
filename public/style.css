@@ -42,4 +42,8 @@ main {
     margin: 0 auto;
     padding: 10vh;
 }
-
+#feedback {
+    white-space: pre-wrap;
+    font-size: 30px;
+    border: black solid 1px;
+}

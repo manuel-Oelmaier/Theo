@@ -1,8 +1,9 @@
-// TODO:add runtime to the differnt methods with runtime tag
+// TODO:add runtime to the different methods with runtime tag
 import * as path from "node:path";
+import {instance} from "@viz-js/viz";
 
 /**
- * TODO: add set operatitons: union,*,...
+ * TODO: add set operations: union,*,...
  * This is the most basic Thing all constructs of theoretical Informatics have in common.
  * At its core this is only a Set of Words consisting only of Chars in The Alphabet.
  *
@@ -33,7 +34,7 @@ export abstract class Language {
      */
     abstract isInfinite(word: string): boolean;
 
-    abstract equals(regularLanguage: Language): boolean;
+    abstract equals(language: Language): boolean;
 
 }
 
@@ -44,6 +45,7 @@ export abstract class regularLanguage extends Language {
 
     abstract convertToNFA(): NFA;
     abstract convertToNFA(): NFA;
+    abstract override equals(regularLanguage: regularLanguage): boolean;
 }
 
 /**
@@ -122,7 +124,7 @@ export class NFA extends regularLanguage {
     }
 
 
-    equals(regularLanguage: Language): boolean {
+    equals(regularLanguage: regularLanguage): boolean {
         return false;
     }
 
@@ -165,6 +167,42 @@ export class NFA extends regularLanguage {
 
     convertToNFA(): NFA {
         return this
+    }
+
+    display(): HTMLDivElement {
+        const div = document.createElement("div");
+        div.id = "graph";
+
+        instance().then(viz => {
+            const svg = viz.renderSVGElement(this.toDigraph());
+
+            document.getElementById("graph")!.appendChild(svg);
+        });
+
+        return div;
+    }
+
+     toDigraph(): string {
+        let Matrix = ""
+
+         // circle finalstates twice
+         const finalStates = Array.from(this.acceptingStates).join(',');
+         Matrix+="node [shape = doublecircle];"+ finalStates+";"
+         Matrix+="node [shape = circle];"
+
+         // add starting arrow from an invisible node
+         Matrix+='"" [shape = point];"" -> 0 '
+
+         // add transitions
+        for (let i = 0; i < this.adjacencyMatrix.length; i++) {
+            for (let j = 0; j < this.adjacencyMatrix[i].length; j++) {
+                if (this.adjacencyMatrix[i][j] !== "") {
+                    // use ' because viz.js seems to require " as label
+                    Matrix+= i+ ' -> '+j+'[label="'+this.adjacencyMatrix[i][j]+'"]';
+                }
+            }
+        }
+        return "digraph {" + Matrix + "}"
     }
 
     /**
@@ -231,9 +269,9 @@ export class DFA extends NFA {
     /**
      * TODO: implement Hopcroft´s algorithm later with complexity of n log n
      * TODO: remove unreachable states first.
-     * minmizes a DFA by 1. removing all
+     * minimizes a DFA by 1. removing all
      *  2.all accepting states are surely different from non accepting states.
-     *  3.check the others manualy by comparing transitions
+     *  3.check the others manually by comparing transitions
      */
     minimize(): DFA {
         let pairs = new Set<unorderPair>;
@@ -249,7 +287,7 @@ export class DFA extends NFA {
                 differentStates.add(new unorderPair(nonAcceptingState, acceptingState));
             }
         }
-        // iterate over pairs, if State a and State b of pair have a edge marked with the same symbol of the Alphabet
+        // iterate over pairs, if State a and State b of pair have an edge marked with the same symbol of the Alphabet
         // to the same marked State -> add it to marked.
         // and remove from pairs ?.
         let changed = true;
@@ -257,8 +295,8 @@ export class DFA extends NFA {
             changed = false;
             pairs.forEach((pair: unorderPair) => {
                 for (const char of this.alphabet) {
-                    let connectedState = new unorderPair(this.findChar(char,pair.x),this.findChar(char,pair.y));
-                    if(differentStates.has(connectedState)){
+                    let connectedState = new unorderPair(this.findChar(char, pair.x), this.findChar(char, pair.y));
+                    if (differentStates.has(connectedState)) {
                         differentStates.add(pair);
                         pairs.delete(pair);
                         changed = true;
@@ -266,20 +304,21 @@ export class DFA extends NFA {
                 }
             })
         }
-        // konstruct automaton out of
+        // construct automaton out of
         console.log(differentStates);
         return this;
     }
 
-    findChar(char: string,matrixrow:number): number {
-        for (let i = 0; i <this.adjacencyMatrix[matrixrow].length ; i++) {
-            if(this.adjacencyMatrix[matrixrow][i] === char){
+    findChar(char: string, matrixRow: number): number {
+        for (let i = 0; i < this.adjacencyMatrix[matrixRow].length; i++) {
+            if (this.adjacencyMatrix[matrixRow][i] === char) {
                 return i;
             }
         }
-        return matrixrow;
+        return matrixRow;
     }
-    residualLanguages(): regularLanguage[]{
+
+    residualLanguages(): regularLanguage[] {
         return [];
     }
 
@@ -315,7 +354,18 @@ export class Grammar extends Language {
     }
 }
 
+/**
+ *
+ */
 export class RegularExpression extends regularLanguage {
+    expression:string;
+
+    constructor(alphabet:Set<string>,expression: string) {
+        super(alphabet);
+        this.parathesisCheck(expression);
+        this.expression = expression;
+    }
+
     contains(word: string): boolean {
         return false;
     }
@@ -324,6 +374,9 @@ export class RegularExpression extends regularLanguage {
         return this.convertToNFA().convertToDFA();
     }
 
+    /**
+     * this will convert a Regex to a NFA using Thompsons Construction
+     */
     convertToNFA(): NFA {
         throw new Error("Not implemented");
     }
@@ -332,8 +385,9 @@ export class RegularExpression extends regularLanguage {
         return this;
     }
 
-    equals(regularLanguage: Language): boolean {
-        return false;
+    equals(regularLanguage: regularLanguage): boolean {
+      const  DFA = this.convertToDFA().minimize();
+      return DFA.equals(regularLanguage);
     }
 
     isEmpty(): boolean {
@@ -342,6 +396,24 @@ export class RegularExpression extends regularLanguage {
 
     isInfinite(word: string): boolean {
         return false;
+    }
+
+    private parathesisCheck(expression: string): void {
+        let nested = 0;
+        for (let i = 0; i < expression.length; i++) {
+            let char = expression.charAt(i);
+            if(char === "(" ){
+                nested++;
+            }else if(char === ")"){
+                nested--;
+                if(nested < 0){
+                    throw new Error("Expected a well formed expression with matching (),Error at:  "+i);
+                }
+            }
+        }
+        if(nested !== 0){
+            throw new Error("There is an unequal amount of Paranthesis by: "+nested);
+        }
     }
 
 }

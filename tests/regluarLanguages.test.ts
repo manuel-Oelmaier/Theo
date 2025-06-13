@@ -1,4 +1,4 @@
-import {DFA, NFA} from "../src/languagesLogic";
+import {DFA, NFA} from "../src/regularLanguages";
 
 describe('NFA', () => {
     let emptyNFA: NFA;
@@ -56,6 +56,17 @@ describe('NFA', () => {
         ])('evenbinaryNFA.contains(%s) returns %s', (word,  expected) => {
             expect(evenbinaryNFA.contains(word)).toBe(expected);
         })
+
+
+
+        test.each([
+            [ () => emptyNFA, 'digraph {node [shape = doublecircle];0;node [shape = circle];"" [shape = point];"" -> 0 }'],
+            [() => onlyaNFA, 'digraph {node [shape = doublecircle];0;node [shape = circle];"" [shape = point];"" -> 0 0 -> 0[label="a"]}'],
+            [ () => evenbinaryNFA, 'digraph {0 -> 0[label="a"]}'],
+        ])('.toDigraph() returns %s', ( getNFA:() => NFA, expected: string) => {
+            const nfa = getNFA()
+            expect(nfa.toDigraph()).toBe(expected);
+        });
     })
 
 });

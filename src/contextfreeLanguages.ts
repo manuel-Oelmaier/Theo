@@ -1,4 +1,4 @@
-import {Language} from "./languagesLogic";
+import {Language} from "./regularLanguages";
 
 class contextFreeLanguage extends Language {
     contains(word: string): boolean {
