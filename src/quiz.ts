@@ -1,8 +1,15 @@
 import Papa from 'papaparse'
 import katex from 'katex';
-const examLinks = [
 
-]
+const examLinks = new Map<string, string>([
+    ["Summer_24 retake","https://teaching.model.in.tum.de/2024ss/theo/exams/2024_retake_solution.pdf"],
+    ["Summer_24","https://teaching.model.in.tum.de/2024ss/theo/exams/2024_endterm_solution.pdf"],
+    ["Summer_23 retake","https://teaching.model.in.tum.de/2024ss/theo/exams/2023_retake_solution.pdf"],
+    ["Summer_23","https://teaching.model.in.tum.de/2024ss/theo/exams/2023_endterm_solution.pdf"],
+    ["Summer_22 retake","https://teaching.model.in.tum.de/2024ss/theo/exams/2022_retake_solution.pdf"],
+    ["Summer_22","https://teaching.model.in.tum.de/2024ss/theo/exams/2022_endterm_solution.pdf"],
+]);
+
 class MultipleChoiceQuestion {
     id: number;
     questionText: string;
@@ -44,7 +51,14 @@ class MultipleChoiceQuestion {
 
         const questionDiv = document.createElement("div");
         questionDiv.id = "replace"
-        questionDiv.textContent += "Question ID: " + this.id + " Exam: " + this.exam;
+        questionDiv.textContent += "Question ID: " + this.id;
+
+        const Link = document.createElement("a");
+        Link.href = examLinks.get(this.exam)!;
+        Link.target = "_blank";
+        Link.textContent = " Exam: " + this.exam;
+
+        questionDiv.appendChild(Link);
 
 
         const question = document.createElement("h3");
