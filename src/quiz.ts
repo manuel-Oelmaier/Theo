@@ -39,7 +39,7 @@ class MultipleChoiceQuestion {
         return this.answers;
     }
 
-
+//TODO: fix katex rendering not allowing line breaks...
     display(): HTMLElement {
 
         const questionDiv = document.createElement("div");

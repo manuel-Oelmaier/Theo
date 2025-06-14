@@ -1,15 +1,20 @@
-import {DFA, NFA} from "../src/regularLanguages";
+import {DFA, NFA} from "../src/LanugageDefinitions";
 
 describe('NFA', () => {
     let emptyNFA: NFA;
     let onlyaNFA: NFA;
     let evenbinaryNFA: NFA;
+    let epsilonNFA: NFA;
 
     beforeEach(() => {
         // Initialize emptyNFA properly
         let matrixEmpty = [[""]];  // or whatever defines empty NFA in your class
-        let finalStatesEmpty = new Set<number>([0]);
+        let finalStatesEmpty = new Set<number>();
         emptyNFA = new NFA(matrixEmpty, finalStatesEmpty);
+
+        let matrixEpsilon = [[""]];
+        let finalStatesEpsilon = new Set<number>([0]);
+        epsilonNFA = new NFA(matrixEpsilon, finalStatesEpsilon);
 
         let matrixOnlyA = [["a"]];
         let finalStatesOnlyA = new Set<number>([0]);
@@ -20,14 +25,18 @@ describe('NFA', () => {
         evenbinaryNFA = new NFA(matrixEvenBinary, finalStatesEvenBinary);
     });
 
-    test.each([
-        ['emptyNFA', () => emptyNFA, true],
-        ['onlyaNFA', () => onlyaNFA, false],
-        ['evenbinaryNFA', () => evenbinaryNFA, false],
-    ])('%s.isEmpty() returns %s', (name, nfaGetter, expected) => {
-        const nfa = nfaGetter();
-        expect(nfa.isEmpty()).toBe(expected);
+    describe('NFA.isEmpty()', () => {
+        test.each([
+            ['emptyNFA', () => emptyNFA, true],
+            ['epsilonNFA', () => epsilonNFA, false],
+            ['onlyaNFA', () => onlyaNFA, false],
+            ['evenbinaryNFA', () => evenbinaryNFA, false],
+        ])('%s.isEmpty() returns %s', (name, nfaGetter, expected) => {
+            const nfa = nfaGetter();
+            expect(nfa.isEmpty()).toBe(expected);
+        });
     });
+
     describe("NFA.contains()",() => {
         test.each([
             ["a",false],
@@ -36,7 +45,7 @@ describe('NFA', () => {
             ["aaaaaaa",false],
         ])('emptyNFA.contains(%s) returns %s', (word,  expected) => {
             expect(emptyNFA.contains(word)).toBe(expected);
-        })
+        });
 
         test.each([
             ["a",true],
@@ -45,7 +54,7 @@ describe('NFA', () => {
             ["aaaaaaa",true],
         ])('onlyaNFA.contains(%s) returns %s', (word,  expected) => {
             expect(onlyaNFA.contains(word)).toBe(expected);
-        })
+        });
 
         test.each([
             ["00000000000",true],
@@ -55,10 +64,9 @@ describe('NFA', () => {
             ["000000001111101010110",true],
         ])('evenbinaryNFA.contains(%s) returns %s', (word,  expected) => {
             expect(evenbinaryNFA.contains(word)).toBe(expected);
-        })
-
-
-
+        });
+    });
+    describe("NFA.toDigraph()",() => {
         test.each([
             [ () => emptyNFA, 'digraph {node [shape = doublecircle];0;node [shape = circle];"" [shape = point];"" -> 0 }'],
             [() => onlyaNFA, 'digraph {node [shape = doublecircle];0;node [shape = circle];"" [shape = point];"" -> 0 0 -> 0[label="a"]}'],
@@ -67,6 +75,6 @@ describe('NFA', () => {
             const nfa = getNFA()
             expect(nfa.toDigraph()).toBe(expected);
         });
-    })
 
+    });
 });
