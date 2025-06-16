@@ -2,10 +2,11 @@ import {chooseNewQuestion, config, quiz_Komplex, quiz_Regular} from "./quiz";
 
 
 document.getElementById('exerciseButton')!.addEventListener('click', switchToExerciseOverview);
-document.getElementById('lessonsButton')!.addEventListener('click', switchToLessonsOverview);
 document.getElementById("regularQuiz")!.addEventListener("click",switchRegularQuiz);
 document.getElementById("komplexQuiz")!.addEventListener("click",switchKomplexQuiz);
 document.getElementById("displayNFA")!.addEventListener("click",switchTodDisplayDFA)
+document.getElementById("showExplanation")!.addEventListener("click",showExplanation);
+
 
 function switchToExerciseOverview() {
     setAllDivsDisplayNone();
@@ -13,11 +14,6 @@ function switchToExerciseOverview() {
 
 }
 
-
-function switchToLessonsOverview() {
-    setAllDivsDisplayNone();
-    document.getElementById('overViewLessons')!.style.display = 'flex';
-}
 
 function switchRegularQuiz(){
     config.quiz = quiz_Regular;
@@ -31,6 +27,13 @@ function switchTodDisplayDFA(){
 
 }
 
+function showExplanation(){
+   let explanations=  document.querySelectorAll<HTMLElement>(".explanation");
+   console.log(explanations);
+    for(const explanation of explanations){
+        explanation.style.display = "flex";
+    }
+}
 
 function switchToQuestions() {
     setAllDivsDisplayNone();
@@ -44,3 +47,5 @@ function setAllDivsDisplayNone() {
         (x[i] as HTMLElement).style.display = 'none';
     }
 }
+
+

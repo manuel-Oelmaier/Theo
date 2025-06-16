@@ -34,7 +34,7 @@ class MultipleChoiceQuestion {
      * @param csv line
      */
     static from(csv: string[]): MultipleChoiceQuestion {
-        return new MultipleChoiceQuestion(parseInt(csv[0]), csv[1], csv[2], csv.slice(3, 14));
+        return new MultipleChoiceQuestion(parseInt(csv[0]), csv[1], csv[2], csv.slice(3, 15));
 
     }
 
@@ -134,17 +134,36 @@ class Answer {
         const inputId = "answer" + answerOption;
 
         const label = document.createElement("label");
+
         label.htmlFor = inputId;
+
         katex.render(this.answerText, label, {
             output: "html",
             displayMode: true
         })
+
         const input = document.createElement("input");
         input.type = "checkbox";
         input.id = inputId;
 
+
+        const explanation = document.createElement("div");
+
+        katex.render(this.explanation, explanation, {
+            output: "html",
+            displayMode: true
+        })
+
+        explanation.classList.add("explanation");
+        explanation.style.display = "none";
+
+
+
         div.appendChild(input);
         div.appendChild(label);
+        div.appendChild(explanation);
+
+
 
         return div;
 
