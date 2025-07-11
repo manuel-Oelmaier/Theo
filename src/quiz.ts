@@ -1,16 +1,7 @@
 import Papa from 'papaparse'
 import katex from 'katex';
 
-const examLinks = new Map<string, string>([
-    ["Summer_24 retake","https://teaching.model.in.tum.de/2024ss/theo/exams/2024_retake_solution.pdf"],
-    ["Summer_24","https://teaching.model.in.tum.de/2024ss/theo/exams/2024_endterm_solution.pdf"],
-    ["Summer_23 retake","https://teaching.model.in.tum.de/2024ss/theo/exams/2023_retake_solution.pdf"],
-    ["Summer_23","https://teaching.model.in.tum.de/2024ss/theo/exams/2023_endterm_solution.pdf"],
-    ["Summer_22 retake","https://teaching.model.in.tum.de/2024ss/theo/exams/2022_retake_solution.pdf"],
-    ["Summer_22","https://teaching.model.in.tum.de/2024ss/theo/exams/2022_endterm_solution.pdf"],
-]);
-
-class MultipleChoiceQuestion {
+class Question {
     id: number;
     questionText: string;
     answers: Answer[];
@@ -33,8 +24,8 @@ class MultipleChoiceQuestion {
      *
      * @param csv line
      */
-    static from(csv: string[]): MultipleChoiceQuestion {
-        return new MultipleChoiceQuestion(parseInt(csv[0]), csv[1], csv[2], csv.slice(3, 15));
+    static from(csv: string[]): Question {
+        return new Question(parseInt(csv[0]), csv[1], csv[2], csv.slice(3, 15));
 
     }
 
@@ -48,6 +39,14 @@ class MultipleChoiceQuestion {
 
 //TODO: fix katex rendering not allowing line breaks...
     display(): HTMLElement {
+        const examLinks = new Map<string, string>([
+            ["Summer_24 retake","https://teaching.model.in.tum.de/2024ss/theo/exams/2024_retake_solution.pdf"],
+            ["Summer_24","https://teaching.model.in.tum.de/2024ss/theo/exams/2024_endterm_solution.pdf"],
+            ["Summer_23 retake","https://teaching.model.in.tum.de/2024ss/theo/exams/2023_retake_solution.pdf"],
+            ["Summer_23","https://teaching.model.in.tum.de/2024ss/theo/exams/2023_endterm_solution.pdf"],
+            ["Summer_22 retake","https://teaching.model.in.tum.de/2024ss/theo/exams/2022_retake_solution.pdf"],
+            ["Summer_22","https://teaching.model.in.tum.de/2024ss/theo/exams/2022_endterm_solution.pdf"],
+        ]);
 
         const questionDiv = document.createElement("div");
         questionDiv.id = "replace"
@@ -84,7 +83,6 @@ class MultipleChoiceQuestion {
 
     }
 
-//TODO: solution button,+ explanation
     checkAnswers() {
         let correctAnswer = true;
         let message = ""
@@ -145,8 +143,6 @@ class Answer {
         const input = document.createElement("input");
         input.type = "checkbox";
         input.id = inputId;
-
-
         const explanation = document.createElement("div");
 
         katex.render(this.explanation, explanation, {
@@ -157,26 +153,43 @@ class Answer {
         explanation.classList.add("explanation");
         explanation.style.display = "none";
 
-
-
         div.appendChild(input);
         div.appendChild(label);
         div.appendChild(explanation);
-
-
 
         return div;
 
     }
 
 }
+class answeredQuestion {
+    question: Question;
+    givenAnswers: number[];
+    correct:boolean;
 
-export const quiz_Komplex: MultipleChoiceQuestion[] = await createQuestions("/csv/Quiz_Komplexität.csv");
-export const quiz_Regular: MultipleChoiceQuestion[] = await createQuestions("csv/Quiz_Regular.csv");
-let currentQuestion: MultipleChoiceQuestion;
+    constructor(question: Question, givenAnswers: number[] = [],correct: boolean) {
+        this.question = question;
+        this.givenAnswers = givenAnswers;
+        this.correct = correct;
+    }
+}
+
+
+export const quiz_Komplex: Question[] = await createQuestions("csv/Quiz_Komplexität.csv");
+export const quiz_Regular: Question[] = await createQuestions("csv/Quiz_Regular.csv");
+let history: answeredQuestion[] = [];
+
 export let config = {
     quiz: quiz_Komplex,
+    history: history,
+    order:[] as number[],
 }
+
+let order:number[]= createQuestionOrder();
+let questionNumber: number = 0; // iterates from 0 to quiz.length
+let currentID: number = order[questionNumber]; // id of the current question in the Question[]
+config.order = order;
+
 
 
 async function processCSV(url: string): Promise<object[]> {
@@ -193,33 +206,54 @@ async function processCSV(url: string): Promise<object[]> {
     });
 }
 
-async function createQuestions(url: string): Promise<MultipleChoiceQuestion[]> {
-    let questions: MultipleChoiceQuestion[] = [];
+async function createQuestions(url: string): Promise<Question[]> {
+    let questions: Question[] = [];
     let questionStrings: object[] = await processCSV(url);
     questionStrings.forEach(question => {
-        questions.push(MultipleChoiceQuestion.from(Object.values(question)));
+        questions.push(Question.from(Object.values(question)));
     });
     return questions;
 
 }
 
+export function createQuestionOrder(){
+    let questionIDs  = Array.from({ length: config.quiz.length }, (_, i) => i);
+    // shuffle using Fisher–Yates algorithm: no duplicates random shuffeling:
+    for (let i = questionIDs.length - 1; i > 0; i--)
+    {
 
-/**
- * random oder der Reihe nach durch?#
- */
-export async function chooseNewQuestion(): Promise<void> {
-    let quest = config.quiz;
-    let index = Math.floor(Math.random() * quest.length);
-    console.log(quest[index]);
-    currentQuestion = quest[index];
+        // Pick a random index from 0 to i inclusive
+        let j = Math.floor(Math.random() * (i + 1));
+
+        // Swap arr[i] with the element 
+        // at random index 
+        [questionIDs[i], questionIDs[j]] = [questionIDs[j], questionIDs[i]];
+    }
+    return questionIDs;
+}
+
+export function nextQuestion(){
+// history.push(new answeredQuestion(config.quiz[currentID]),)
+questionNumber++;
+currentID = order[questionNumber];
+if(currentID >= order.length){
+    // TODO: result screen
+}else {
+    console.log(currentID);
+    displayQuestion(currentID);
+}
+
+
+}
+export function displayQuestion(questionID: number){
+    let currentQuestion = config.quiz[questionID];
     document.getElementById("replace")?.replaceWith(currentQuestion.display());
 }
 
 function checkQuestion() {
-    currentQuestion.checkAnswers();
+    config.quiz[currentID].checkAnswers();
 }
 
-document.getElementById('nextQuestionButton')!.addEventListener('click', chooseNewQuestion);
+document.getElementById('nextQuestionButton')!.addEventListener('click', nextQuestion);
 document.getElementById('checkAnswersButton')!.addEventListener('click', checkQuestion);
-// TODO: statistics & history
 

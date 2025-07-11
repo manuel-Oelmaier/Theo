@@ -1,4 +1,4 @@
-import {chooseNewQuestion, config, quiz_Komplex, quiz_Regular} from "./quiz";
+import {displayQuestion, config, quiz_Komplex, quiz_Regular, nextQuestion,createQuestionOrder} from "./quiz";
 
 
 document.getElementById('exerciseButton')!.addEventListener('click', switchToExerciseOverview);
@@ -17,10 +17,12 @@ function switchToExerciseOverview() {
 
 function switchRegularQuiz(){
     config.quiz = quiz_Regular;
+    config.order = createQuestionOrder();
     switchToQuestions();
 }
 function switchKomplexQuiz(){
     config.quiz = quiz_Komplex;
+    config.order = createQuestionOrder();
     switchToQuestions();
 }
 function switchTodDisplayDFA(){
@@ -37,7 +39,7 @@ function showExplanation(){
 
 function switchToQuestions() {
     setAllDivsDisplayNone();
-    chooseNewQuestion();
+    nextQuestion();
     document.getElementById('questionDiv')!.style.display = 'block';
 }
 
