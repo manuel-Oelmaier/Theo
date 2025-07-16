@@ -1,0 +1,511 @@
+[
+  {
+    "ID": 0.0,
+    "Question text": "\\text{Which of the following Langauges are residual Languages of }L((bba)^*b)",
+    "Exam": "Summer_24 retake",
+    "AnswerOptions": [
+      "\\{b\\}",
+      "L(ba(bba)^∗b | ϵ)",
+      "\\emptyset"
+    ],
+    "AnswerBools": [
+      false,
+      true,
+      true
+    ],
+    "Explanations": [
+      "TODO",
+      "TODO",
+      "\\emptyset \\text{ is the residual Language of the trap-state of the minimal DFA. Since e.g a isn't accepted by L it is a residual Language.}"
+    ]
+  },
+  {
+    "ID": 1.0,
+    "Question text": "\\text{Let }L ⊆ Σ^∗ \\text{ be a language with } LL = Σ^{*}. \\text{ Which statements are true?}",
+    "Exam": "Summer_24 retake",
+    "AnswerOptions": [
+      "\\text{ L is infinite}",
+      "ε ∈ L",
+      "LLL = Σ^*"
+    ],
+    "AnswerBools": [
+      true,
+      true,
+      true
+    ],
+    "Explanations": [
+      "\\text{ If L were finite, LL would also be finite}",
+      "\\text{ Since }ε \\in \\Sigma^{∗}, ε \\text{ must also be in LL}",
+      "\\text{ It holds that }LLL = Σ^∗L ⊇ Σ^∗ \\text{ because }ε ∈ L"
+    ]
+  },
+  {
+    "ID": 2.0,
+    "Question text": "\\text{Let }L ⊆ Σ^∗ \\text{ be regular. Which of the following languages are regular? }",
+    "Exam": "Summer_24 retake",
+    "AnswerOptions": [
+      "\\{u^R v | u, v ∈ L\\}",
+      "\\{u^R u | u ∈ L\\}",
+      "\\{uv | u, v ∈ L ∧ |u| = |v|\\}"
+    ],
+    "AnswerBools": [
+      true,
+      false,
+      false
+    ],
+    "Explanations": [
+      "\\text{ This is }L^R L; \\text{ regular Languages are closed under concatenation}",
+      "\\text{ Counterexample:} L = \\Sigma^* \\text{ Then L is the Language of palindromes which isn't regular! }\\",
+      "\\text{ e.g Be L} = (ba*). \\text{ Then the language is} \\{ baⁿbaⁿ | n ∈ ℕ \\}, \\text{ which is not regular.}"
+    ]
+  },
+  {
+    "ID": 3.0,
+    "Question text": "\\text{ Which of the following context-free grammars are ambiguous?}",
+    "Exam": "Summer_24 retake",
+    "AnswerOptions": [
+      "S → SS | a",
+      "S → Sa | Sb | ε",
+      "S → TT; T → aT | bT | a | b"
+    ],
+    "AnswerBools": [
+      true,
+      false,
+      true
+    ],
+    "Explanations": [
+      "\\text{One counterexample: 'aaa' has two parse trees }",
+      "\\text{ Terminals are generated right to left }",
+      "\\text{One counterexample: 'aaa' has two parse trees }"
+    ]
+  },
+  {
+    "ID": 4.0,
+    "Question text": "\\text{ Let }A ⊆ Σ^* \\text{ be regular and } B⊆ Σ^* \\text{ context-free. Which of the following languages are context-free?}",
+    "Exam": "Summer_24 retake",
+    "AnswerOptions": [
+      "A ∪ \\overline{B}",
+      "\\overline{A} ∪ B",
+      "AB"
+    ],
+    "AnswerBools": [
+      false,
+      true,
+      true
+    ],
+    "Explanations": [
+      "\\overline B \\text{ might not be context free so (context free Languages not closed under complement) so the whole expression might not be context free}",
+      "\\text{ A is regular and so also context-free; union of context-free languages is closed}",
+      "\\text{ A is context-free; concatenation of contextfree Languages is closed}"
+    ]
+  },
+  {
+    "ID": 5.0,
+    "Question text": "\\text{ Let } L ⊆ Σ^∗ \\text{ be a finite language with } |L| = |L^∗|.\\text{ Which statements are true?}",
+    "Exam": "Summer_24",
+    "AnswerOptions": [
+      "\\text{L is regular}",
+      "ε ∈ L",
+      "|L| = |LL|"
+    ],
+    "AnswerBools": [
+      true,
+      true,
+      true
+    ],
+    "Explanations": [
+      "\\text{Every finite Language is regular and L is finite.}",
+      "L^*\\text{always contains }\\epsilon \\text{. So L also has contain at least one thing.If it is a Letter }x \\in \\Sigma, |L^*| \\text{ is infinite, so it can only be that } L =\\{ \\epsilon \\}",
+      "L = \\{\\epsilon\\} \\text{ implies that both absolute values are 1}"
+    ]
+  },
+  {
+    "ID": 6.0,
+    "Question text": "\\text{ Let } L ⊆ Σ^∗\\text{ and }L' := {w ∈ L : |w|² ≤ 10|w|}.\\text{ Which statements are true?}",
+    "Exam": "Summer_24",
+    "AnswerOptions": [
+      "\\text{L' is regular}",
+      "\\text{L' is context-free}",
+      "\\text{L' is deterministic context-free}"
+    ],
+    "AnswerBools": [
+      true,
+      true,
+      true
+    ],
+    "Explanations": [
+      "\\text{L´ is finite since }|w| \\leq 10 \\text{since all finite languages are regular, L` is too}",
+      "\\text{since L´ is regular and every regular language is context free}",
+      "\\text{since L´ is regular and every regular language is deterministic context free}"
+    ]
+  },
+  {
+    "ID": 7.0,
+    "Question text": "\\text{Let } L ⊆ Σ^∗ \\text{ be regular and } k > 0.\\text{ Which of the following languages are regular?}",
+    "Exam": "Summer_24",
+    "AnswerOptions": [
+      "{w ∈ L : |w| ≡ 0 (mod \\:k)}",
+      "{w₁...w_k : w₁,...,w_k ∈ L}",
+      "{w^k : w ∈ L}"
+    ],
+    "AnswerBools": [
+      true,
+      true,
+      false
+    ],
+    "Explanations": [
+      "L ∩ (Σ^k)^* \\text{ is regular;regular languages are closed under intersection}",
+      "= L^k; \\text{ and regular languages are closed under concatenation}",
+      "\\text{ For }k = 2, \\text{ known to be non-regular (Language of Palindromes)}"
+    ]
+  },
+  {
+    "ID": 8.0,
+    "Question text": "\\text{ Let }L ⊆ Σ^∗ \\text{ be context-free. Which of the following languages are context-free?}",
+    "Exam": "Summer_24",
+    "AnswerOptions": [
+      "\\overline{L}",
+      "L ∪ L^R",
+      "L ∩ L^R"
+    ],
+    "AnswerBools": [
+      false,
+      true,
+      false
+    ],
+    "Explanations": [
+      "\\text{ context free languages are not closed under complement}",
+      "L^R \\text{ is context free so }L ∪ L^R \\text{is the Union of two context free languages, which is closed under Union}",
+      "\\text{ context free languages are not closed under intersection }"
+    ]
+  },
+  {
+    "ID": 9.0,
+    "Question text": "\\text{ Let G be the grammar with productions } S → aT, T → Sb. \\text{ Which statements are true? }",
+    "Exam": "Summer_24",
+    "AnswerOptions": [
+      "\\text{ G is right-linear }",
+      "\\text{ G is context-free}",
+      "L(G) \\text{is regular}",
+      "L(G) \\text{is context free}"
+    ],
+    "AnswerBools": [
+      false,
+      true,
+      true,
+      true
+    ],
+    "Explanations": [
+      "\\text{Production: T → Sb is not right-linear}",
+      "\\text{G does only have Variables on the left side of productions.}",
+      "L(G) = ∅, \\text{ so regular}",
+      "L(G) = ∅, \\text{ so contextfree}"
+    ]
+  },
+  {
+    "ID": 10.0,
+    "Question text": "\\text{We consider the language }L :=\\{ aⁿbᵐcᵐ | n,m ∈ ℕ\\} \\text{ over } \\{a,b,c\\}.",
+    "Exam": "Summer_23 retake",
+    "AnswerOptions": [
+      "\\text{ There exists a DPDA accepting L by final state }",
+      "\\text{ There exists an NFA recognizing L}",
+      "\\text{ There exists a DPDA accepting L by empty stack}"
+    ],
+    "AnswerBools": [
+      true,
+      false,
+      false
+    ],
+    "Explanations": [
+      "L \\text{ is deterministic context free(only m to match) so there is A DPDA}",
+      "L \\text{ isn't regular.}",
+      "\\text{Prefix Condition:If a valid string is prefix of another valid string,no DPDA can recogniz it. Here: a,aa}"
+    ]
+  },
+  {
+    "ID": 11.0,
+    "Question text": "\\text{We consider languages over }\\{a, b\\}.",
+    "Exam": "Summer_23 retake",
+    "AnswerOptions": [
+      "\\text{The set of regular languages is countable}",
+      "\\text{The set of languages that are not context-free is countable}",
+      "\\text{The set of languages that are context-free but not regular is countable}"
+    ],
+    "AnswerBools": [
+      true,
+      false,
+      true
+    ],
+    "Explanations": [
+      "TODO",
+      "\\text{The Set of Type 0 languages is uncountable,since this is included in the Set of not context-free, the not context free also needs to be uncountable.}",
+      "TODO"
+    ]
+  },
+  {
+    "ID": 12.0,
+    "Question text": "\\text{Let }A, B \\text{ be languages over the same alphabet.}",
+    "Exam": "Summer_23 retake",
+    "AnswerOptions": [
+      "\\text{ If  A and B are not regular, then } A ∪ B \\text{ is not regular}",
+      "\\text{ If A is regular and B is context-free, then } A ∩ B \\text{ is context-free}",
+      "\\text{If }A ∪ B = B ¸\\text{ and }B \\text{ is regular, then } A \\text{ is regular}"
+    ],
+    "AnswerBools": [
+      false,
+      true,
+      false
+    ],
+    "Explanations": [
+      "\\text{Counterexample:}",
+      "\\text{Sadly you just need to know this.}",
+      "A ∪ B = B \\text{ just says }A \\subseteq B \\text{ a subset of a regular language doesnt have to be regular,e.g choose }B= \\Sigma^* \\text{and A any contextfree language}"
+    ]
+  },
+  {
+    "ID": 13.0,
+    "Question text": "\\text{Define }L_1 := \\{uv | u,v \\in \\Sigma^*, u ≠ v\\}, L_2 := \\{uv | u,v \\in \\Sigma^*,|u| = |v|\\}.",
+    "Exam": "Summer_23 retake",
+    "AnswerOptions": [
+      "\\text{L₁ is regular}",
+      "L_{2}^{*} = L₂",
+      "L₁ ∪ L₂\\text{ is regular}"
+    ],
+    "AnswerBools": [
+      true,
+      true,
+      true
+    ],
+    "Explanations": [
+      "L_1 \\text{ is actually just the Language beginning with one Letter (u) of }\\Sigma \\text{ and then  optionally adding more (u) -> regular }",
+      "L_2 \\text{is just the Language of words with even length. Concatenating it x times doesnt change that.}",
+      "L_1,L_2\\text{ are regular, since regular Languages are closed under union, this is true.}"
+    ]
+  },
+  {
+    "ID": 14.0,
+    "Question text": "\\text{We consider the language }L := \\{v₁bw₁\\#v₂aw₂ | v₁ = v₂ ∧ w₁ = w₂\\}.",
+    "Exam": "Summer_23 retake",
+    "AnswerOptions": [
+      "L^{ab\\#bb} = L^{a\\#b}",
+      "L^{aba\\#ba} = L^{ab\\#ba}",
+      "L^{ab\\#} = L^{ba\\#}"
+    ],
+    "AnswerBools": [
+      true,
+      true,
+      true
+    ],
+    "Explanations": [
+      "\\text{L contains no word starting either with }ab\\#bb\\text{ nor with }a\\#b \\text{so the residual languages is }\\emptyset",
+      "\\text{L contains no word starting either with }aba\\#ba\\text{ nor with }ab\\#ba",
+      "\\text{L contains no word starting either with }ab\\#\\text{ nor with }ba\\#"
+    ]
+  },
+  {
+    "ID": 15.0,
+    "Question text": "\\text{Let }A, B ⊆ Σ^∗ \\text{ be languages. Which of the following statements are true?}",
+    "Exam": "Summer_22 retake",
+    "AnswerOptions": [
+      "|A|^2 = |A^2|",
+      "\\{uv : u ∈ A, v ∈ B\\}^2 = \\{uv : u, v ∈ AB\\}",
+      "A ⊆ (A ∪ B^*)^2"
+    ],
+    "AnswerBools": [
+      false,
+      true,
+      true
+    ],
+    "Explanations": [
+      "\\text{ Counterexample: }A = \\{a, aa\\}",
+      "\\text{ Both equal to }(AB)^2",
+      "(A ∪ B^*)^2 \\text{ all just add to A,The expression is always at least as big as A}"
+    ]
+  },
+  {
+    "ID": 16.0,
+    "Question text": "\\text{Let }M = (Q, Σ, δ, q₀, F) \\text{be a DFA. A state } q ∈ Q \\text{ is called a trap state if no final state is reachable from }q i.e. δ(q, w) ∉ F \\text{ for all }w ∈ Σ^∗. \\text{ For which of the following regular expressions r does there exist a DFA M with L(M) = L(r) and no trap state?}",
+    "Exam": "Summer_22 retake",
+    "AnswerOptions": [
+      "a^*b^*a^*b^*",
+      "bab^*(a | b)^*",
+      "(a | b)^*bab"
+    ],
+    "AnswerBools": [
+      false,
+      false,
+      true
+    ],
+    "Explanations": [
+      "δ(q_0, ba) \\text{ is always a trap state }",
+      "δ(q₀, a) \\text{ is always a trap state}",
+      "\\text{ From every state, reading ba leads to acceptance, also valid is that Answer 1 and 2 a obviously false and so this one is correct.}"
+    ]
+  },
+  {
+    "ID": 17.0,
+    "Question text": "\\text{Let } M = (Q, Σ, Γ, q_0, Z_0, δ, F) \\text{be a PDA with n states and k stack symbols.We convert M to a context free Grammar according to the lecture. What is the maximum number of non-terminal symbols that G can have? }",
+    "Exam": "Summer_22 retake",
+    "AnswerOptions": [
+      "k2^n + 1",
+      "nk^2 + 1",
+      "n^2k + 1",
+      "(k+n)^2+1"
+    ],
+    "AnswerBools": [
+      false,
+      false,
+      true,
+      false
+    ],
+    "Explanations": [
+      "V = Q × Q × Γ × ∪ {S}"
+    ]
+  },
+  {
+    "ID": 18.0,
+    "Question text": "\\text{ Which of the following languages are context-free?}",
+    "Exam": "Summer_22 retake",
+    "AnswerOptions": [
+      "\\bigcup_{n=0}^{\\infty} \\{aa, ab\\}^n \\{ab, bb\\}^n",
+      "\\{a^n b^n a^n: n ∈ ℕ\\}",
+      "\\{a^n: n \\text{ is even}\\}"
+    ],
+    "AnswerBools": [
+      true,
+      false,
+      true
+    ],
+    "Explanations": [
+      "S → AS B | ε, A → aa | ab, B → ab | bb",
+      "\\text{ Same argument as for } \\{a^n b^n c^n: n ∈ ℕ\\}",
+      "S → aaS | ε; \\text{ the language is even regular.}"
+    ]
+  },
+  {
+    "ID": 19.0,
+    "Question text": "\\text{For an NFA or DFA } M = (Q, Σ, δ, q_0, F) \\text{ and state } q ∈ Q, \\text{ we write } L_M(q) \\text{ for the words that M accepts starting in state q. Which of the following statements are true?}",
+    "Exam": "Summer_22 retake",
+    "AnswerOptions": [
+      "\\text{ There is a connected NFA M with state q and }L(M) = \\{aa, ba\\}^* \\text{ and }LM(q) = \\{ab\\}^*.",
+      "\\text{There exists a connected NFA M with state q and }L(M) = \\{aa, ba\\}^*\\text{ and }LM(q) = \\{aa\\}^*.",
+      "\\text{ There is a connected DFA M with state q and }L(M) = \\{aa, ba\\}^* \\text{ and }LM(q) = \\{a\\}\\{aa, ba\\}*.",
+      "\\text{There exists a connected DFA M with state q and } L(M) = \\{aa,ba\\}^* \\text{ and } L_{M}(q) = \\{a\\}^*"
+    ],
+    "AnswerBools": [
+      false,
+      true,
+      true,
+      false
+    ],
+    "Explanations": [
+      "\\text{ Then M would accept a word that ends with b.}",
+      "\\text{ Since} \\{aa\\}^* ⊆ L(M), \\text{ one can always add such a state to an NFA for }L(M).",
+      "\\{a\\}\\{aa, ba\\}^* \\text{ is a residual language, the statement holds for all }M.",
+      "\\{a\\}^∗ \\text{is no residual Language of M.}"
+    ]
+  },
+  {
+    "ID": 20.0,
+    "Question text": "\\text{Let }A, B, C ⊆ Σ^* \\text{ be languages. Which of the following statements are true? }",
+    "Exam": "Summer_22",
+    "AnswerOptions": [
+      "A ≠ B ⇒ A^* ≠ B^*",
+      "A(B ∪ C) = AB ∪ AC",
+      "|A||B| ≤ |AB|"
+    ],
+    "AnswerBools": [
+      false,
+      true,
+      false
+    ],
+    "Explanations": [
+      "\\text{ Counterexample:} A = \\{a, b\\}, B = \\{a, b, ab \\}",
+      "\\text{Holds for all Sets -> since Languages are just set for those as well.}",
+      "\\text{ Counterexample: } A = B = \\{a, aa\\}"
+    ]
+  },
+  {
+    "ID": 21.0,
+    "Question text": "\\text{Let r be a regular expression and M an NFA with n states and }L(M) = L(r). \\text{ Which statements are true? }",
+    "Exam": "Summer_22",
+    "AnswerOptions": [
+      "\\text{ There is an NFA for }L(ar) \\text{ with at most n+1 states.}",
+      "\\text{There is an NFA for }L(rar) \\text{ with at most n+1 states.}",
+      "\\text{ There is an NFA for }L(ra) \\text{ with at most n+1 states.}"
+    ],
+    "AnswerBools": [
+      true,
+      false,
+      true
+    ],
+    "Explanations": [
+      "\\text{We add a new initial state with an a-transition to the old initial state.}",
+      "\\text{ Counterexample: r = a. There is an NFA M with 2 states, but for L(aaa), every NFA has at least 4 states.}",
+      "\\text{ We add a new final state f. The old final states are no longer final and receive an a-transition to f. }"
+    ]
+  },
+  {
+    "ID": 22.0,
+    "Question text": "\\text{ How many states does the minimal DFA for the language }L((a^*b)^+) \\text{ have?}",
+    "Exam": "Summer_22",
+    "AnswerOptions": [
+      "1",
+      "2",
+      "3",
+      "\\geq 4"
+    ],
+    "AnswerBools": [
+      false,
+      true,
+      false,
+      false
+    ],
+    "Explanations": [
+      "\\text{by designing the DFA}"
+    ]
+  },
+  {
+    "ID": 23.0,
+    "Question text": "\\text{ Let G be the grammar with productions }S → aSb | Sb | b. \\text{ How many states does the smallest PDA M with } L_{\\epsilon}(M) = L(G) \\text{ have? consider that L(M) are the words M excepts with empty stack.}",
+    "Exam": "Summer_22",
+    "AnswerOptions": [
+      "1",
+      "2",
+      "3",
+      "\\geq 4"
+    ],
+    "AnswerBools": [
+      true,
+      false,
+      false,
+      false
+    ],
+    "Explanations": [
+      "\\text{ We know that for every CFL there is a PDA with one state.}",
+      "\\text{see 1}",
+      "\\text{see 1}",
+      "\\text{see 1}"
+    ]
+  },
+  {
+    "ID": 24.0,
+    "Question text": "\\text{Let G be a context-free grammar with 7 productions. Which statements are true?}",
+    "Exam": "Summer_22",
+    "AnswerOptions": [
+      "\\text{G has at most 7 reachable non-terminals.}",
+      "\\text{G has at most 7 useful non-terminals.}",
+      "\\text{G has at most 7 generating non-terminals.}"
+    ],
+    "AnswerBools": [
+      false,
+      true,
+      true
+    ],
+    "Explanations": [
+      "\\text{Counterexample: }S -> ABCD.... ",
+      "\\text{usefully non-terminals need to be at the left side of a Produktion. Since each Produktion can only have one and there are 7,this holds.}",
+      "\\text{follows from 2, since generating terminal need to be useful}"
+    ]
+  }
+]

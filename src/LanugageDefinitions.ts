@@ -1,5 +1,9 @@
 // TODO:add runtime to the different methods with runtime tag
 
+import {RegularExpression} from "./Languages/RegularExpression.ts";
+import {DFA} from "./Languages/DFA.ts";
+import {NFA} from "./Languages/NFA.ts";
+
 /**
  * TODO: add set operations: union,*,...
  * This is the most basic Thing all constructs of theoretical Informatics have in common.

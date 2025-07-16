@@ -1,7 +1,8 @@
 import {instance} from "@viz-js/viz";
-import {regularLanguage} from "../LanugageDefinitions";
-import {DFA} from "./DFA";
-import {RegularExpression} from "./RegularExpression";
+
+import {regularLanguage} from "../LanugageDefinitions.ts";
+import {DFA} from "./DFA.ts";
+import {RegularExpression} from "./RegularExpression.ts";
 
 /**
  * This class represents a DFA according to Textbook definition.
@@ -209,7 +210,7 @@ function hasIntersection<T>(A: Set<T>, B: Set<T>): boolean {
     return false;
 }
 
-class unorderPair {
+export class unorderPair {
     x: number;
     y: number;
 

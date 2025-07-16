@@ -1,5 +1,19 @@
-import Papa from 'papaparse'
 import katex from 'katex';
+
+import  quiz_regular from './csv/quiz_Regular.json';
+import  quiz_Komplex from './csv/quiz_Komplexität.json';
+
+export let quiz: Quiz;
+
+export interface RawQuestion {
+    ID: number;
+    "Question text": string;
+    Exam: string;
+    AnswerOptions: string[];
+    AnswerBools: boolean[];
+    Explanations: string[];
+}
+
 
 class Question {
     id: number;
@@ -7,35 +21,19 @@ class Question {
     answers: Answer[];
     exam: string;
 
-    constructor(id: number, Question: string, exam: string, answers: string[],) {
-        this.id = id;
-        this.questionText = Question;
-        this.exam = exam;
+
+
+    constructor(raw: RawQuestion) {
+        this.id = raw.ID;
+        this.questionText = raw["Question text"]; // handle key with space
+        this.exam = raw.Exam;
         this.answers = [];
-        for (let i = 0; i < 12; i += 3) {
-            if (answers[i] === "") {
-                break;
-            }
-            this.answers.push(new Answer(answers[i], answers[i + 1], answers[i + 2]));
+        for (let i = 0; i < raw.AnswerOptions.length; i++) {
+            this.answers.push(new Answer(raw.AnswerOptions[i],raw.AnswerBools[i],raw.Explanations[i]));
         }
-    }
-
-    /**
-     *
-     * @param csv line
-     */
-    static from(csv: string[]): Question {
-        return new Question(parseInt(csv[0]), csv[1], csv[2], csv.slice(3, 15));
 
     }
 
-    getQuestionHTML() {
-        return this.questionText;
-    }
-
-    getAnswers() {
-        return this.answers;
-    }
 
 //TODO: fix katex rendering not allowing line breaks...
     display(): HTMLElement {
@@ -112,15 +110,10 @@ class Answer {
     correct: boolean;
     explanation: string;
 
-    constructor(answerText: string, right: string, explanation: string) {
+    constructor(answerText: string, right: boolean, explanation: string) {
         this.answerText = answerText;
-        this.correct = (right === "true" || right === "True");
+        this.correct = right;
         this.explanation = explanation;
-    }
-
-
-    getAnswerText() {
-        return this.answerText;
     }
 
     getRight() {
@@ -173,87 +166,61 @@ class answeredQuestion {
         this.correct = correct;
     }
 }
+type QuizMode = 'regular' | 'Komplexität';
+//TODO: probably better to confert the csv, to a json file , also removes papaParse
+export class Quiz {
+    questions : Question[];
+    order: number[];
+    history:answeredQuestion[];
+    questionNumber : number;
 
-
-export const quiz_Komplex: Question[] = await createQuestions("csv/Quiz_Komplexität.csv");
-export const quiz_Regular: Question[] = await createQuestions("csv/Quiz_Regular.csv");
-let history: answeredQuestion[] = [];
-
-export let config = {
-    quiz: quiz_Komplex,
-    history: history,
-    order:[] as number[],
-}
-
-let order:number[]= createQuestionOrder();
-let questionNumber: number = 0; // iterates from 0 to quiz.length
-let currentID: number = order[questionNumber]; // id of the current question in the Question[]
-config.order = order;
-
-
-
-async function processCSV(url: string): Promise<object[]> {
-
-    return new Promise(resolve => {
-        Papa.parse(url, {
-            download: true,
-            skipEmptyLines: true,
-            header: true,
-            complete: (results: any) => {
-                resolve(results.data);
-            }
-        });
-    });
-}
-
-async function createQuestions(url: string): Promise<Question[]> {
-    let questions: Question[] = [];
-    let questionStrings: object[] = await processCSV(url);
-    questionStrings.forEach(question => {
-        questions.push(Question.from(Object.values(question)));
-    });
-    return questions;
-
-}
-
-export function createQuestionOrder(){
-    let questionIDs  = Array.from({ length: config.quiz.length }, (_, i) => i);
-    // shuffle using Fisher–Yates algorithm: no duplicates random shuffeling:
-    for (let i = questionIDs.length - 1; i > 0; i--)
-    {
-
-        // Pick a random index from 0 to i inclusive
-        let j = Math.floor(Math.random() * (i + 1));
-
-        // Swap arr[i] with the element 
-        // at random index 
-        [questionIDs[i], questionIDs[j]] = [questionIDs[j], questionIDs[i]];
+     constructor(mode: QuizMode,) {
+        if (mode === "regular") {
+            this.questions =   quiz_regular.map(raw => new Question(raw));
+        } else {
+            this.questions = quiz_Komplex.map(raw => new Question(raw));
+        }
+        this.order = this.createQuestionOrder();
+        this.history = [];
+        this.questionNumber = 0;
+        this.nextQuestion();
     }
-    return questionIDs;
-}
-
-export function nextQuestion(){
-// history.push(new answeredQuestion(config.quiz[currentID]),)
-questionNumber++;
-currentID = order[questionNumber];
-if(currentID >= order.length){
-    // TODO: result screen
-}else {
-    console.log(currentID);
-    displayQuestion(currentID);
-}
 
 
-}
-export function displayQuestion(questionID: number){
-    let currentQuestion = config.quiz[questionID];
-    document.getElementById("replace")?.replaceWith(currentQuestion.display());
-}
 
-function checkQuestion() {
-    config.quiz[currentID].checkAnswers();
+     createQuestionOrder(){
+        let questionIDs  = Array.from({ length: this.questions.length }, (_, i) => i);
+        // shuffle using Fisher–Yates algorithm: no duplicates random shuffling:
+        for (let i = questionIDs.length - 1; i > 0; i--){
+            let j = Math.floor(Math.random() * (i + 1));
+            [questionIDs[i], questionIDs[j]] = [questionIDs[j], questionIDs[i]];
+        }
+        return questionIDs;
+    }
+    nextQuestion() {
+        // history.push(new answeredQuestion(config.quiz[currentID]),)
+        this.questionNumber++;
+        let currentID = this.order[this.questionNumber];
+        if (currentID >= this.order.length) {
+            // TODO: result screen
+        } else {
+            console.log(currentID);
+            this.displayQuestion(currentID);
+        }
+    }
+    displayQuestion(questionID: number){
+        let currentQuestion = this.questions[questionID];
+        document.getElementById("replace")?.replaceWith(currentQuestion.display());
+    }
+    checkQuestion() {
+        let currentID = this.order[this.questionNumber];
+        this.questions[currentID].checkAnswers();
+    }
 }
-
-document.getElementById('nextQuestionButton')!.addEventListener('click', nextQuestion);
-document.getElementById('checkAnswersButton')!.addEventListener('click', checkQuestion);
+document.getElementById('nextQuestionButton')!.addEventListener('click', () => {
+    quiz.nextQuestion();
+});
+document.getElementById('checkAnswersButton')!.addEventListener('click', () => {
+    quiz.checkQuestion();
+});
 

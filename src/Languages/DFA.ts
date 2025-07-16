@@ -1,5 +1,5 @@
-import {NFA,unorderedPair} from './NFA'
-import {regularLanguage} from "../LanugageDefinitions";
+import {NFA,unorderPair} from './NFA.ts'
+import {regularLanguage} from "../LanugageDefinitions.ts";
 
 
 /**

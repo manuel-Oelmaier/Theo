@@ -1,3 +1,6 @@
+import {regularLanguage} from "../LanugageDefinitions.ts";
+import {DFA} from "./DFA.ts";
+import {NFA} from "./NFA.ts";
 
 /**
  *  A regular expression consists out of Paranthesis () , chars of the Alphabet + epsilon (empty word),
