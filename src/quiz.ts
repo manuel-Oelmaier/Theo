@@ -3,9 +3,15 @@ import katex from 'katex';
 import  quiz_regular from './csv/quiz_Regular.json';
 import  quiz_Komplex from './csv/quiz_Komplexität.json';
 
-export let quiz: Quiz;
+let quiz: Quiz;
 
-export interface RawQuestion {
+export type QuizMode = 'regular' | 'Komplexität';
+export  function initQuiz(quiztype:QuizMode){
+    quiz = new Quiz(quiztype);
+}
+
+
+interface RawQuestion {
     ID: number;
     "Question text": string;
     Exam: string;
@@ -166,7 +172,7 @@ class answeredQuestion {
         this.correct = correct;
     }
 }
-type QuizMode = 'regular' | 'Komplexität';
+
 //TODO: probably better to confert the csv, to a json file , also removes papaParse
 export class Quiz {
     questions : Question[];

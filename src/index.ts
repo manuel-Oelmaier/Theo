@@ -1,9 +1,8 @@
-
-
+import {initQuiz, QuizMode} from "./quiz.ts";
 
 document.getElementById('exerciseButton')!.addEventListener('click', switchToExerciseOverview);
-document.getElementById("regularQuiz")!.addEventListener("click",switchRegularQuiz);
-document.getElementById("komplexQuiz")!.addEventListener("click",switchKomplexQuiz);
+document.getElementById("regularQuiz")!.addEventListener("click",() => {switchToQuestions('regular');});
+document.getElementById("komplexQuiz")!.addEventListener("click",() => {switchToQuestions('Komplexität');});
 document.getElementById("displayNFA")!.addEventListener("click",switchTodDisplayDFA)
 document.getElementById("showExplanation")!.addEventListener("click",showExplanation);
 
@@ -15,14 +14,9 @@ function switchToExerciseOverview() {
 }
 
 
-function switchRegularQuiz(){
-    switchToQuestions();
-}
-function switchKomplexQuiz(){
-    switchToQuestions();
-}
-function switchTodDisplayDFA(){
 
+function switchTodDisplayDFA(){
+    //TODO:
 }
 
 function showExplanation(){
@@ -33,9 +27,10 @@ function showExplanation(){
     }
 }
 
-function switchToQuestions() {
+function switchToQuestions(quiztype:QuizMode) {
     setAllDivsDisplayNone();
     document.getElementById('questionDiv')!.style.display = 'block';
+    initQuiz(quiztype);
 }
 
 function setAllDivsDisplayNone() {
