@@ -117,9 +117,8 @@ main {
     display: flex;
     align-items: center;  /* vertically centers checkbox and label */
     gap: 10px;            /* space between checkbox and label */
+    padding: 0.3em;
 }
-
-
 
 /* Feedback area */
 #feedback {

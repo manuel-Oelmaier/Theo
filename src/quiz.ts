@@ -178,9 +178,8 @@ class Answer {
         const label = clone.querySelector(".answer-label") as HTMLElement;
         const explanation = clone.querySelector(".explanation") as HTMLElement;
 
-        katex.render(this.answerText, label, {output: "html", displayMode: true});
-        katex.render(this.explanation, explanation, {output: "html", displayMode: true});
-
+        renderSupport(label, this.answerText);
+        renderSupport(explanation, this.answerText);
         container.appendChild(clone);
     }
 
