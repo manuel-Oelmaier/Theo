@@ -1,12 +1,13 @@
 import katex from 'katex';
 
-import  quiz_regular from './quiz/quiz_Regular.json';
-import  quiz_Komplex from './quiz/quiz_Komplexität.json';
+import quiz_regular from './quiz/quiz_Regular.json';
+import quiz_Komplex from './quiz/quiz_Complexity.json';
 
 let quiz: Quiz;
 
 export type QuizMode = 'regular' | 'Komplexität';
-export  function initQuiz(quiztype:QuizMode){
+
+export function initQuiz(quiztype: QuizMode) {
     quiz = new Quiz(quiztype);
 }
 
@@ -20,6 +21,58 @@ interface RawQuestion {
     Explanations: string[];
 }
 
+export class Quiz {
+    questions: Question[];
+    order: number[];
+    history: answeredQuestion[];
+    questionNumber: number;
+
+    constructor(mode: QuizMode,) {
+        if (mode === "regular") {
+            this.questions = quiz_regular.map(raw => new Question(raw));
+        } else {
+            this.questions = quiz_Komplex.map(raw => new Question(raw));
+        }
+        this.order = this.createQuestionOrder();
+        this.history = [];
+        this.questionNumber = 0;
+        this.nextQuestion();
+    }
+
+
+    createQuestionOrder() {
+        let questionIDs = Array.from({length: this.questions.length}, (_, i) => i);
+        // shuffle using Fisher–Yates algorithm: no duplicates random shuffling:
+        for (let i = questionIDs.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            [questionIDs[i], questionIDs[j]] = [questionIDs[j], questionIDs[i]];
+        }
+        return questionIDs;
+    }
+
+    nextQuestion() {
+        // history.push(new answeredQuestion(config.quiz[currentID]),)
+        this.questionNumber++;
+        let currentID = this.order[this.questionNumber];
+        if (currentID >= this.order.length) {
+            // TODO: result screen
+        } else {
+            console.log("current QuestionID:" + currentID);
+            this.displayQuestion(currentID);
+        }
+    }
+
+    displayQuestion(questionID: number) {
+        let currentQuestion = this.questions[questionID];
+        currentQuestion.display();
+    }
+
+    checkQuestion() {
+        let currentID = this.order[this.questionNumber];
+        this.questions[currentID].checkAnswers();
+    }
+}
+
 
 class Question {
     id: number;
@@ -27,63 +80,54 @@ class Question {
     answers: Answer[];
     exam: string;
 
-
-
     constructor(raw: RawQuestion) {
         this.id = raw.ID;
         this.questionText = raw["Question text"]; // handle key with space
         this.exam = raw.Exam;
         this.answers = [];
         for (let i = 0; i < raw.AnswerOptions.length; i++) {
-            this.answers.push(new Answer(raw.AnswerOptions[i],raw.AnswerBools[i],raw.Explanations[i]));
+            this.answers.push(new Answer(raw.AnswerOptions[i], raw.AnswerBools[i], raw.Explanations[i]));
         }
 
     }
 
 //TODO: fix errors with wrong ID:
 //TODO: fix katex rendering not allowing line breaks...
-    display(): HTMLElement {
+    display() {
         const examLinks = new Map<string, string>([
-            ["Summer_24 retake","https://teaching.model.in.tum.de/2024ss/theo/exams/2024_retake_solution.pdf"],
-            ["Summer_24","https://teaching.model.in.tum.de/2024ss/theo/exams/2024_endterm_solution.pdf"],
-            ["Summer_23 retake","https://teaching.model.in.tum.de/2024ss/theo/exams/2023_retake_solution.pdf"],
-            ["Summer_23","https://teaching.model.in.tum.de/2024ss/theo/exams/2023_endterm_solution.pdf"],
-            ["Summer_22 retake","https://teaching.model.in.tum.de/2024ss/theo/exams/2022_retake_solution.pdf"],
-            ["Summer_22","https://teaching.model.in.tum.de/2024ss/theo/exams/2022_endterm_solution.pdf"],
+            ["Summer_24 retake", "https://teaching.model.in.tum.de/2024ss/theo/exams/2024_retake_solution.pdf"],
+            ["Summer_24", "https://teaching.model.in.tum.de/2024ss/theo/exams/2024_endterm_solution.pdf"],
+            ["Summer_23 retake", "https://teaching.model.in.tum.de/2024ss/theo/exams/2023_retake_solution.pdf"],
+            ["Summer_23", "https://teaching.model.in.tum.de/2024ss/theo/exams/2023_endterm_solution.pdf"],
+            ["Summer_22 retake", "https://teaching.model.in.tum.de/2024ss/theo/exams/2022_retake_solution.pdf"],
+            ["Summer_22", "https://teaching.model.in.tum.de/2024ss/theo/exams/2022_endterm_solution.pdf"],
         ]);
 
-        const questionDiv = document.createElement("div");
-        questionDiv.id = "replace"
-        questionDiv.textContent += "Question ID: " + this.id;
+        const replaceDiv = document.getElementById("replace") as HTMLElement;
 
-        const Link = document.createElement("a");
-        Link.href = examLinks.get(this.exam)!;
-        Link.target = "_blank";
-        Link.textContent = " Exam: " + this.exam;
+        // Clear old question
+        replaceDiv.innerHTML = "";
 
-        questionDiv.appendChild(Link);
+        const tmpl = document.getElementById("questionTemplate") as HTMLTemplateElement;
+        const clone = tmpl.content.cloneNode(true) as HTMLElement;
 
+        // Fill in question info
+        const idEl = clone.querySelector(".question-id") as HTMLElement;
+        idEl.textContent = "Question ID: " + this.id;
 
-        const question = document.createElement("h3");
-        katex.render(this.questionText, question, {
-            output: "html"
-        });
+        const examLink = clone.querySelector(".exam-link") as HTMLAnchorElement;
+        examLink.href = examLinks.get(this.exam)!;
+        examLink.textContent = " Exam: " + this.exam;
 
-        const form = document.createElement("form");
+        const questionEl = clone.querySelector(".question-text") as HTMLElement;
+        katex.render(this.questionText, questionEl, {output: "html", displayMode: true});
 
-        for (let i = 0; i < this.answers.length; i++) {
-            form.appendChild(this.answers[i].display(i));
-        }
+        // Render answers
+        const answersContainer = clone.querySelector(".answers") as HTMLElement;
+        this.answers.forEach(answer => answer.display(answersContainer));
 
-        const feedback = document.createElement("div");
-        feedback.id = "feedback";
-
-        questionDiv.appendChild(question);
-        questionDiv.appendChild(form);
-        questionDiv.appendChild(feedback);
-
-
-        return questionDiv;
+        // Append the fully populated clone
+        replaceDiv.appendChild(clone);
 
     }
 
@@ -95,10 +139,9 @@ class Question {
             let answer = document.getElementById('answer' + i) as HTMLInputElement;
             if (answer.checked !== this.answers[i].getRight()) {
                 correctAnswer = false;
-                message += "Answer " + (i+1) + " was: " + answer.checked + " but expected: " + this.answers[i].getRight() + "\n";
+                message += "Answer " + (i + 1) + " was: " + answer.checked + " but expected: " + this.answers[i].getRight() + "\n";
             }
         }
-
 
         if (correctAnswer) {
             document.getElementById("feedback")!.textContent = "Correct!\n" + message
@@ -126,106 +169,48 @@ class Answer {
         return this.correct;
     }
 
-    display(answerOption: number): HTMLElement {
-        const div = document.createElement("div");
-        const inputId = "answer" + answerOption;
+    display(container: HTMLElement) {
+        const tmpl = document.getElementById("answerTemplate") as HTMLTemplateElement;
+        const clone = tmpl.content.cloneNode(true) as HTMLElement;
 
-        const label = document.createElement("label");
+        const input = clone.querySelector(".answer-input") as HTMLInputElement;
+        const label = clone.querySelector(".answer-label") as HTMLElement;
+        const explanation = clone.querySelector(".explanation") as HTMLElement;
 
-        label.htmlFor = inputId;
+        katex.render(this.answerText, label, {output: "html", displayMode: true});
+        katex.render(this.explanation, explanation, {output: "html", displayMode: true});
 
-        katex.render(this.answerText, label, {
-            output: "html",
-            displayMode: true
-        })
-
-        const input = document.createElement("input");
-        input.type = "checkbox";
-        input.id = inputId;
-        const explanation = document.createElement("div");
-
-        katex.render(this.explanation, explanation, {
-            output: "html",
-            displayMode: true
-        })
-
-        explanation.classList.add("explanation");
-        explanation.style.display = "none";
-
-        div.appendChild(input);
-        div.appendChild(label);
-        div.appendChild(explanation);
-
-        return div;
-
+        container.appendChild(clone);
     }
 
+
 }
+
+
 class answeredQuestion {
     question: Question;
     givenAnswers: number[];
-    correct:boolean;
+    correct: boolean;
 
-    constructor(question: Question, givenAnswers: number[] = [],correct: boolean) {
+    constructor(question: Question, givenAnswers: number[] = [], correct: boolean) {
         this.question = question;
         this.givenAnswers = givenAnswers;
         this.correct = correct;
     }
 }
 
-export class Quiz {
-    questions : Question[];
-    order: number[];
-    history:answeredQuestion[];
-    questionNumber : number;
 
-     constructor(mode: QuizMode,) {
-        if (mode === "regular") {
-            this.questions =   quiz_regular.map(raw => new Question(raw));
-        } else {
-            this.questions = quiz_Komplex.map(raw => new Question(raw));
-        }
-        this.order = this.createQuestionOrder();
-        this.history = [];
-        this.questionNumber = 0;
-        this.nextQuestion();
-    }
-
-
-
-     createQuestionOrder(){
-        let questionIDs  = Array.from({ length: this.questions.length }, (_, i) => i);
-        // shuffle using Fisher–Yates algorithm: no duplicates random shuffling:
-        for (let i = questionIDs.length - 1; i > 0; i--){
-            let j = Math.floor(Math.random() * (i + 1));
-            [questionIDs[i], questionIDs[j]] = [questionIDs[j], questionIDs[i]];
-        }
-        return questionIDs;
-    }
-    nextQuestion() {
-        // history.push(new answeredQuestion(config.quiz[currentID]),)
-        this.questionNumber++;
-        let currentID = this.order[this.questionNumber];
-        if (currentID >= this.order.length) {
-            // TODO: result screen
-        } else {
-            console.log("current QuestionID:"+currentID);
-            this.displayQuestion(currentID);
-        }
-    }
-    displayQuestion(questionID: number){
-        let currentQuestion = this.questions[questionID];
-        document.getElementById("replace")?.replaceWith(currentQuestion.display());
-    }
-    checkQuestion() {
-        let currentID = this.order[this.questionNumber];
-        this.questions[currentID].checkAnswers();
-    }
-}
 document.getElementById('nextQuestionButton')!.addEventListener('click', () => {
     quiz.nextQuestion();
 });
 document.getElementById('checkAnswersButton')!.addEventListener('click', () => {
     quiz.checkQuestion();
 });
+
+function showExplanation() {
+    let explanations = document.querySelectorAll<HTMLElement>(".explanation");
+    console.log(explanations);
+}
+
+document.getElementById("showExplanation")!.addEventListener("click", showExplanation);
 

@@ -26,15 +26,41 @@
         <button id="komplexQuiz">Quiz: Komplexität</button>
 
     </div>
+
     <div id="questionDiv" class="switchable">
-        <div id="replace">
-        </div>
+
+        <template id="questionTemplate">
+            <div class="question-container">
+
+                <h3 class="question-text"></h3>
+                <div class="answers"></div>
+                <div class="feedback"></div>
+                <div class="question-header">
+                    <span class="question-id"></span>
+                    <a class="exam-link" target="_blank"></a>
+                </div>
+            </div>
+        </template>
+
+        <template id="answerTemplate">
+            <div class="answer-container">
+                <input type="checkbox" class="answer-input">
+                <label class="answer-label"></label>
+                <div class="explanation" style="display:none;"></div>
+            </div>
+        </template>
+
+        <!-- This div will be replaced with the content of the template each time-->
+        <div id="replace"></div>
 
         <button id="checkAnswersButton">check</button>
         <button id="nextQuestionButton">next Question</button>
         <button id="showExplanation">show Explanation</button>
-        <a href="https://github.com/Lohtharr/Theo/issues" target="_blank"><button id="errorReportQuestionButton">Submit an issue with this question!</button></a>
+        <a href="https://github.com/Lohtharr/Theo/issues" target="_blank">
+            <button id="errorReportQuestionButton">Submit an issue with this question!</button>
+        </a>
     </div>
+
 </main>
 
 </body>
