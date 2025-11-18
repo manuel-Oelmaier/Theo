@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Theo Lernen</title>
+    <title> Theoretical Informatics  </title>
     <link rel="stylesheet" href="/style.css">
     <script src="/src/index.js" defer type="module"></script>
     <script src="/src/questions.js" defer type="module"></script>
@@ -21,13 +21,19 @@
 
     <div id="exercisesOverViewDiv" class="switchable">
 
-        <button id="regularQuiz">Quiz: Reguläre und kontextfreie Sprachen</button>
+        <p> This website has every Multiple choice Question of the past Exams of "Introduction to theoretical Informatics"(IN0011)
+            from <abbr title="Technical University Munich ">TUM</abbr>. Additionally, explanations are provided, sometimes by the Instructors
+        and sometimes from myself (not every exam has usefully explanations). The questions order is randomized.</p>
 
-        <button id="komplexQuiz">Quiz: Komplexität</button>
+        <button id="regularQuiz">Quiz: regular und contextfree Languages</button>
+
+        <button id="komplexQuiz">Quiz: Complexity</button>
 
     </div>
 
     <div id="questionDiv" class="switchable">
+
+        <div id="progress-container"> <span>Question 1 of X</span></div>
 
         <template id="questionTemplate">
             <div class="question-container">
@@ -53,6 +59,8 @@
         <!-- This div will be replaced with the content of the template each time-->
         <div id="replace"></div>
 
+
+        <div id="feedback"></div>
         <button id="checkAnswersButton">check</button>
         <button id="nextQuestionButton">next Question</button>
         <button id="showExplanation">show Explanation</button>

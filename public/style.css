@@ -111,6 +111,9 @@ main {
 
 .explanation {
     display:none;
+    font-style: italic;
+    margin-left: 25px;
+    border-left: 2px solid #ccc;
 }
 
 .answer-container {

@@ -24,7 +24,6 @@ interface RawQuestion {
 export class Quiz {
     questions: Question[];
     order: number[];
-    history: answeredQuestion[];
     questionNumber: number;
 
     constructor(mode: QuizMode,) {
@@ -33,12 +32,13 @@ export class Quiz {
         } else {
             this.questions = quiz_Komplex.map(raw => new Question(raw));
         }
+
         this.order = this.createQuestionOrder();
-        this.history = [];
         this.questionNumber = 0;
+
         this.nextQuestion();
     }
-
+    // TODO fix skipping first question of order
 
     createQuestionOrder() {
         let questionIDs = Array.from({length: this.questions.length}, (_, i) => i);
@@ -51,15 +51,19 @@ export class Quiz {
     }
 
     nextQuestion() {
-        // history.push(new answeredQuestion(config.quiz[currentID]),)
-        this.questionNumber++;
         let currentID = this.order[this.questionNumber];
-        if (currentID >= this.order.length) {
+        if (this.questionNumber >= this.order.length) {
             // TODO: result screen
         } else {
             console.log("current QuestionID:" + currentID);
             this.displayQuestion(currentID);
         }
+
+        // update visuals
+        document.getElementById('feedback')!.innerText = "";
+        //ids are starting at 0, so question number +1
+        document.getElementById('progress-container')!.innerHTML = "Question "+(this.questionNumber +1)+" of "+this.order.length;
+        this.questionNumber++;
     }
 
     displayQuestion(questionID: number) {
@@ -71,6 +75,8 @@ export class Quiz {
         let currentID = this.order[this.questionNumber];
         this.questions[currentID].checkAnswers();
     }
+
+
 }
 
 
@@ -91,8 +97,7 @@ class Question {
 
     }
 
-//TODO: fix errors with wrong ID:
-//TODO: fix katex rendering not allowing line breaks -> wrapper  ?
+//TODO: fix errors with wrong ID ????
     display() {
         const examLinks = new Map<string, string>([
             ["Summer_24 retake", "https://teaching.model.in.tum.de/2024ss/theo/exams/2024_retake_solution.pdf"],
@@ -121,8 +126,6 @@ class Question {
 
         const questionEl = clone.querySelector(".question-text") as HTMLElement;
         renderSupport(questionEl,this.questionText);
-        //katex.render(this.questionText, questionEl, {output: "htmlAndMathml", displayMode: true});
-
         // Render answers
         const answersContainer = clone.querySelector(".answers") as HTMLElement;
         this.answers.forEach(answer => answer.display(answersContainer));
@@ -133,16 +136,18 @@ class Question {
     }
 
     checkAnswers() {
+        const inputs = document.querySelectorAll<HTMLInputElement>(".answer-input");
         let correctAnswer = true;
         let message = ""
 
-        for (let i = 0; i < this.answers.length; i++) {
-            let answer = document.getElementById('answer' + i) as HTMLInputElement;
+        for (let i = 0; i < inputs.length; i++) {
+            const answer = inputs[i];
             if (answer.checked !== this.answers[i].getRight()) {
                 correctAnswer = false;
-                message += "Answer " + (i + 1) + " was: " + answer.checked + " but expected: " + this.answers[i].getRight() + "\n";
+                message += `Answer ${i + 1} was: ${answer.checked} but expected: ${this.answers[i].getRight()}\n`;
             }
         }
+
 
         if (correctAnswer) {
             document.getElementById("feedback")!.textContent = "Correct!\n" + message
@@ -179,7 +184,7 @@ class Answer {
         const explanation = clone.querySelector(".explanation") as HTMLElement;
 
         renderSupport(label, this.answerText);
-        renderSupport(explanation, this.answerText);
+        renderSupport(explanation, this.explanation);
         container.appendChild(clone);
     }
 
@@ -235,6 +240,7 @@ class answeredQuestion {
 
 document.getElementById('nextQuestionButton')!.addEventListener('click', () => {
     quiz.nextQuestion();
+
 });
 document.getElementById('checkAnswersButton')!.addEventListener('click', () => {
     quiz.checkQuestion();
@@ -242,7 +248,9 @@ document.getElementById('checkAnswersButton')!.addEventListener('click', () => {
 
 function showExplanation() {
     let explanations = document.querySelectorAll<HTMLElement>(".explanation");
-    console.log(explanations);
+    for (let i = 0; i < explanations.length; i++) {
+        explanations[i].style.display = "flex";
+    }
 }
 
 document.getElementById("showExplanation")!.addEventListener("click", showExplanation);
