@@ -4,13 +4,12 @@
     "Question text": "\\text{Which of the following languages are decidable?}",
     "Exam": "Summer_22",
     "AnswerOptions": [
-      "\\{w ∈ Σ^{*}: L(M_w) \\}= \\{vv: v ∈ Σ^*}\\}",
-      "\\{ww: w ∈ Σ^*\\}"
+      "\\{w \\in Σ^{*}: L(M_w) \\} = \\{ vv: v \\in Σ^* \\}",
+      "\\{ww: \\in  Σ^*\\}"
     ],
     "AnswerBools": [
       false,
-      true,
-      false
+      true
     ],
     "Explanations": [
       "Rice's theorem.",
@@ -19,7 +18,7 @@
   },
   {
     "ID": 2.0,
-    "Question text": "\\text{For which of the following languages does there exist a } v ∈ Σ^{*}\\text{ such that they are decidable?}",
+    "Question text": "\\text{For which of the following languages does there exist a } v \\in Σ^{*}\\text{ such that they are decidable?}",
     "Exam": "Summer_22",
     "AnswerOptions": [
       "\\{w ∈ Σ^{*}: φ_{v}(v) = 0\\}",
@@ -32,29 +31,29 @@
       false
     ],
     "Explanations": [
-      "The condition does not depend on w.",
-      "Choose v as the encoding of a TM that never halts.",
-      "Rice's theorem."
+      "\\text{ The condition does not depend on w, so v can simply be any function with that attribute.}",
+      "\\text{ Choose v as the encoding of a TM that never halts.}",
+      "\\text{ Rice's theorem.}"
     ]
   },
   {
     "ID": 3.0,
-    "Question text": "\\text{Let }L ⊆ Σ* \\text{be finite. Which of the following languages are semi-decidable?}",
+    "Question text": "\\text{Let }L \\subseteq Σ^* \\text{ be finite. Which of the following languages are semi-decidable?}",
     "Exam": "Summer_22",
     "AnswerOptions": [
-      "\\{w ∈ Σ*: L(Mw) = Σ*\\} ∩ L",
-      "\\{w ∈ Σ*: L(M_{w}) ∩ L = L\\}",
-      "\\{w ∈ Σ*: L(Mw) ∩ L = Σ*\\}"
+      "\\{w \\in Σ^*: L(M_w) = Σ^*\\} \\cap L",
+      "\\{w \\in Σ^*: L(M_{w}) \\cap L = L\\}",
+      "\\{w \\in Σ^*: L(M_{w}) \\cap L = Σ^*\\}"
     ],
     "AnswerBools": [
       true,
       true,
-      false
+      true
     ],
     "Explanations": [
-      "The resulting set is finite.",
-      "We can check Mw[x]↓ for each x ∈ L.",
-      "The condition is trivially false."
+      "\\text{ The resulting set is finite, so the Language is regular and thus decidable}",
+      "\\text{ We can check} M_w[x]↓ \\text{ for each } x ∈ L.",
+      "\\text{ The condition is trivially false, so always decidable}"
     ]
   },
   {
@@ -72,17 +71,19 @@
       false
     ],
     "Explanations": [
-      "In fact, all regular languages are in NP."
+      "\\text{ In fact, all regular languages are in NP.}",
+      "",
+      ""
     ]
   },
   {
     "ID": 5.0,
-    "Question text": "\\text{For the NP-complete problem SAT, which of the following variants of SAT are NP-complete, assuming} P \\neq NP?",
+    "Question text": "\\text{For the NP-complete problem SAT, which of the following variants of SAT are NP-complete, assuming } P \\neq NP?",
     "Exam": "Summer_22",
     "AnswerOptions": [
-      "\\text{The formula F does not contain} ¬.",
+      "\\text{The formula F does not contain } ¬.",
       "\\text{The formula F does not contain }∧.",
-      "\\text{Each variable} x_{i} \\text{occurs only once in F.}"
+      "\\text{Each variable } x_{i} \\text{ occurs only once in F.}"
     ],
     "AnswerBools": [
       false,
@@ -90,9 +91,9 @@
       false
     ],
     "Explanations": [
-      "The formula is always satisfied if all variables are true.",
-      "One can write x ∧ y as ¬(¬x ∨ ¬y).",
-      "As long as possible, replace ¬(x ∧ y) with ¬x ∨ ¬y, ¬(x ∨ y) with ¬x ∧ ¬y, and ¬¬x with x. Afterward, each variable is still used only once, and negations can only occur directly before variables. If ¬x is contained, set x to false, otherwise to true. This is always a satisfying assignment."
+      "\\text{ The formula is always satisfied if all variables are true.}",
+      "\\text{ One can write} x ∧ y \\text{ as } ¬(¬x ∨ ¬y).",
+      "\\text{ There is always a satisfying assignment with: As long as possible, replace } ¬(x ∧ y) \\text{ with } ¬x ∨ ¬y, ¬(x ∨ y) \\text{ with } ¬x ∧ ¬y, \\text{ and } ¬¬x \\text{ with x. Afterward, each variable is still used only once, and negations can only occur directly before variables. If } ¬x \\text{  is contained, set x to false, otherwise to true. }"
     ]
   },
   {
@@ -102,7 +103,7 @@
     "AnswerOptions": [
       "\\{w ∈ Σ^*: L(M_{w}) \\text{ is semi-decidable\\}}",
       "\\{w ∈ Σ^{*}: L(M_{w}) = ∅\\}",
-      "\\{w ∈ Σ*: L(M_{w}) \\text{is decidable}\\}"
+      "\\{w ∈ Σ^*: L(M_{w}) \\text{is decidable}\\}"
     ],
     "AnswerBools": [
       true,
@@ -110,9 +111,9 @@
       false
     ],
     "Explanations": [
-      "L(M_{w}) is always semi-decidable.",
+      "L(M_{w}) \\text{ is always semi-decidable.}",
       "\\text{ Rice's theorem.}",
-      "Rice's theorem."
+      "\\text{Rice's theorem.}"
     ]
   },
   {
@@ -120,9 +121,9 @@
     "Question text": "\\text{Which of the following statements are true?}",
     "Exam": "Summer_22 retake",
     "AnswerOptions": [
-      "\\text{Let }L1 ⊆ Σ^* \\text{ be decidable, and }L2 ⊆ Σ* \\text{ be undecidable. Then } L1 ∪ L2 \\text{ is undecidable.}",
-      "\\text{ Let } L1, L2 ⊆ Σ* \\text{ be decidable languages. Then }L1 ∖ L2 \\text{ is decidable.}",
-      "\\text{ Let }L1 ⊆ Σ* \\text{ be decidable, and }L2 ⊆ Σ* \\text{ be semi-decidable. Then there exists a } w ∈ Σ^{*} \\text{such that }M_{w} \\text{ decides the language }L1 ∩ L2."
+      "\\text{Let }L_1 ⊆ Σ^* \\text{ be decidable, and }L_2 ⊆ Σ^* \\text{ be undecidable. Then } L_1 ∪ L_2 \\text{ is undecidable.}",
+      "\\text{ Let } L_1, L_2 ⊆ Σ^* \\text{ be decidable languages. Then }L_1 ∖ L_2 \\text{ is decidable.}",
+      "\\text{ Let }L_1 ⊆ Σ^* \\text{ be decidable, and }L_2 ⊆ Σ* \\text{ be semi-decidable. Then there exists a } w ∈ Σ^{*} \\text{such that }M_{w} \\text{ decides the language }L1 ∩ L2."
     ],
     "AnswerBools": [
       false,
@@ -130,29 +131,29 @@
       false
     ],
     "Explanations": [
-      "Counterexample: L1 = Σ*, L2 = H0.",
-      "Closure property.",
-      "Counterexample: L1 = Σ*, L2 = H0."
+      "\\text{Counterexample:} L1 = Σ^*, L2 = H_0.",
+      "\\text{ Closure property of decidable Languages}",
+      "\\text{Counterexample:} L1 = Σ^*, L2 = H_0."
     ]
   },
   {
     "ID": 8.0,
-    "Question text": "\\text{Which of the following statements are true?}",
+    "Question text": "\\text{Which of the following statements are true? }",
     "Exam": "Summer_22 retake",
     "AnswerOptions": [
-      "\\text{ For every } v ∈ Σ^{*}, L_v := \\{w ∈ Σ*: ww ∈ L(M_{v})\\} \\text{ is semi-decidable.}",
-      "\\text{ For every } v ∈ Σ^{*}, L_{v} := \\{w ∈ Σ*: L(Mw) ≠ L(Mv)\\} \\text{ is semi-decidable.}",
-      "\\text{ For every } v ∈ Σ^{*}, L_{v} := {w ∈ Σ*: w ∉ L(Mv)} \\text{ is semi-decidable. }"
+      "\\text{ For every } v ∈ Σ^{*}, L_v := \\{w ∈ Σ^*: ww ∈ L(M_{v})\\} \\text{ is semi-decidable.}",
+      "\\text{ For every } v ∈ Σ^{*}, L_{v} := \\{w ∈ Σ^*: L(M_w) ≠ L(M_v)\\} \\text{ is semi-decidable.}",
+      "\\text{ For every } v ∈ Σ^{*}, L_{v} := \\{w ∈ Σ^*: w ∉ L(M_v)\\} \\text{ is semi-decidable. }"
     ],
     "AnswerBools": [
       true,
-      true,
+      false,
       false
     ],
     "Explanations": [
-      "Execute Mv on ww.",
-      "With L(Mv) = Σ*, these are the non-terminating TMs, see Corollary 5.51.",
-      "Lv = L(Mv)."
+      "\\text{ Execute }  M_v \\text{ on ww.} ",
+      "\\text{ With } L(M_v) = Σ^* \\text{ , these are the non-terminating TMs, see Corollary 5.51.}",
+      "L_v = \\overline{L(M_v)}."
     ]
   },
   {
@@ -161,7 +162,7 @@
     "Exam": "Summer_22 retake",
     "AnswerOptions": [
       "\\text{The formula F is in conjunctive normal form, i.e., it has the form } F1 ∧ … ∧ Fm, \\text{ where each Fi has the form } y_1 ∨ … ∨ y_i\\text{ and }  y_1, …, y_i \\text{ are literals.}",
-      "\\text{ The formula F contains each variable x_{i} at most 2022 times.}",
+      "\\text{ The formula F contains each variable} x_{i} \\text{at most 2022 times.}",
       "\\text{The formula F is in disjunctive normal form, i.e., it has the form }F_1 ∨ … ∨ F_m,\\text{ where each Fi has the form }y_1 ∧ … ∧ y_i \\text{ and }y_1, …, y_i\\text{ are literals.}"
     ],
     "AnswerBools": [
@@ -170,9 +171,9 @@
       false
     ],
     "Explanations": [
-      "Theorem 6.22.",
-      "For a variable x that occurs more frequently, every second occurrence is replaced by the new variable x', and we consider the new formula F ∧ (¬x ∨ x') ∧ (¬x' ∨ x). We repeat this until the condition is met.",
-      "F is satisfiable if one of the Fi is. The latter can be easily verified."
+      "\\text{ Theorem 6.22.}",
+      "\\text{ For a variable x that occurs more frequently, every second occurrence is replaced by the new variable x', and we consider the new formula } F ∧ (¬x ∨ x') ∧ (¬x' ∨ x).\\text{  We repeat this until the condition is met.}",
+      "\\text{ F is satisfiable if one of the } F_i \\text{ is. The latter can be easily verified.}"
     ]
   },
   {
@@ -180,18 +181,20 @@
     "Question text": "\\text{Let }\\{M := {L ⊆ Σ^{*}: L ≤_{p} SAT\\}\\text{ be the set of languages that can be reduced to SAT in polynomial time. Which of the following statements are true?} ",
     "Exam": "Summer_22 retake",
     "AnswerOptions": [
-      "M = NP",
       "If P \\neq NP, \\text{ then there exists a language } L ∈ M \\text{ that cannot be decided by any Turing machine in polynomial time.}",
       "\\text{ Every problem in M can be decided by a non-deterministic Turing machine in polynomial time. }",
-      "All NP-complete problems are in M."
+      "\\text{All NP-complete problems are in M.}"
     ],
     "AnswerBools": [
       true,
       true,
-      true,
       true
     ],
-    "Explanations": []
+    "Explanations": [
+      "\\text{ M = NP!, so trivially true}",
+      "\\text{ M = NP!, so trivially true}",
+      "\\text{ M = NP!, so trivially true}"
+    ]
   },
   {
     "ID": 11.0,
@@ -208,8 +211,8 @@
       true
     ],
     "Explanations": [
-      "\\text{When building a TM that calculates f(w) we run into the halting problem,we never know if its part or not}",
-      "\\text{this implies we can check if a word isnt in it.}",
+      "\\text{were it also semi-decidable, we could decide Graph(f),which we can´t}",
+      "\\text{this implies we can check if a word isn´t in it,which we can´t because of the halting problem}",
       "\\text{Given word w: we can simply calculate f(w) and get confirmation.}"
     ]
   },
@@ -219,7 +222,7 @@
     "Exam": "Summer_23",
     "AnswerOptions": [
       "\\text{If } L^{a} \\in NP, \\text{ then }L \\in NP.",
-      "\\text{If } L^{a} \\in NP\\text{ and }L^{b} \\in NP, \\text{then }L \\in NP.",
+      "If L^{a} \\in NP \\text{ and } L^{b} \\in NP, \\text{then} L \\ \\in NP.",
       "\\text{ If } L \\in NP, \\text{ then } L^{a} \\in NP."
     ],
     "AnswerBools": [
@@ -228,9 +231,9 @@
       true
     ],
     "Explanations": [
-      "This statement is not necessarily true.",
-      "If L^{a} \\in NP \\text{ and } L^{b} \\in NP, \\text{then} L \\in NP.",
-      "If L \\in \\text{NP}, then L^{a} \\in NP."
+      "text{We know that  } L = aL^a \\cup bL^b \\text{(and epsilon if its part. if e.g }L^b \\text{is a undecidable language,it isn`t in NP.)} ",
+      "\\text{We know that  } L = aL^a \\cup bL^b \\text{(and epsilon if its part). Since NP is closed under Union this holds. }",
+      "L^a = aL \\text{Since languages in Np are closed under Containation this is in NP!}"
     ]
   },
   {
@@ -250,17 +253,17 @@
     "Explanations": [
       "\\text{This splits down to finding the smallest word of a grammar }G_1 \\text{and then checking if its in }G_2 \\text{we know that we can check with CYK if w is contained,and the smallest word can be computed by going through its automaton.}",
       "\\text{we cannot decide equality for context free languages.}",
-      "\\text{we can compute if a Language is Empty, but we cant compute}L(G_1)\\\\ L(G_2)"
+      "\\text{we can compute if a Language is Empty, but we cant compute}L(G_1)\\ L(G_2)"
     ]
   },
   {
     "ID": 14.0,
-    "Question text": "\\text{Let }A, B, C \\text{be languages over the same alphabet} \\Sigma.\\text{Which of the following statements are true?} ",
+    "Question text": "\\text{Let }A, B \\text{be languages over the same alphabet} \\Sigma.\\text{Which of the following statements are true?} ",
     "Exam": "Summer_23",
     "AnswerOptions": [
-      "A \\leq_{p} B \\text{ if and only if }A \\leq_{p} B.",
+      "A \\leq B \\text{ if and only if }\\overline{A} \\leq \\overline{B}.",
       "\\text{ Let H be the (general) halting problem. If }A \\in NP,\\text{ then }A \\leq_{p} H.",
-      "\\text{A and B are decidable if and only if A \\leq B and B \\leq A.}"
+      "\\text{A and B are decidable if and only if A} \\leq B and B \\leq A."
     ],
     "AnswerBools": [
       true,
@@ -268,9 +271,9 @@
       false
     ],
     "Explanations": [
-      "This statement is true.",
-      "If A \\in NP, then A \\leq_{p} H.",
-      "This statement is not necessarily true."
+      "\\text{TODO}",
+      "\\text{The Halting problem is NP-hard}",
+      "\\text{Counterexample: Let both A and B be the Halting problem}"
     ]
   },
   {
@@ -288,9 +291,9 @@
       true
     ],
     "Explanations": [
-      "This statement is true.",
-      "This statement is true.",
-      "This statement is true."
+      "\\text{e.g Let the family be all words of the Halting Problem.(or another not-semidecidable aka undecidable problem)}",
+      "\\text{e.g Let the family be all words of the Halting Problem.(or another undecidable problem)}",
+      "\\text{e.g Let the family be all words of L(or another decidable Language)} = a*"
     ]
   },
   {
@@ -308,9 +311,9 @@
       true
     ],
     "Explanations": [
-      "Since only  n  characters can be read in  n  steps, only a finite number of words need to be checked.",
-      "Reduction from the halting problem.",
-      "In  |Q|n + 1  steps,  M  either visits a state at least twice or halts."
+      "\\text{ Since only  n  characters can be read in  n  steps, only a finite number of words need to be checked.}",
+      "\\text{ Reduction from the halting problem.}",
+      "\\text{ In } |Q|n + 1  \\text{ steps,  M  either visits a state at least twice or halts.}"
     ]
   },
   {
@@ -328,9 +331,9 @@
       true
     ],
     "Explanations": [
-      "Simple reduction from the halting problem.",
-      "Simple reduction from the halting problem.",
-      "Simple reduction from the halting problem."
+      "\\text{This is just the specific Halting Problem}",
+      "\\text{We can´t decide if a TM accepts any string,we would need to run it on every possible Input and it might not halt! (Reduktion from the Halting problem)}",
+      "\\text{To know whether or not a Language is regular,we need to know its members.The amount of members in the Language of a turing maschine is undecidable (in the general) case} "
     ]
   },
   {
@@ -349,8 +352,8 @@
     ],
     "Explanations": [
       "\\text{Counterexample: Choose C as }\\emptyset\\text{then there is no garantie at all for } A ≤ B",
-      "This statement is true.",
-      "This statement is true."
+      "\\text{TODO}",
+      "\\text{TOOD: figure out stuff with complement of NP}"
     ]
   },
   {
@@ -359,17 +362,18 @@
     "Exam": "Summer_23 retake",
     "AnswerOptions": [
       "\\text{For at least one problem in NP, there exists a polynomial time-bounded algorithm.}",
-      "3-SAT \\leq_p \\{0^n 1^n 0^n | n \\in \\mathbb{N}\\}",
+      "\\text{ 3-SAT } \\leq_p \\{0^n 1^n 0^n | n \\in \\mathbb{N}\\}",
       "\\{0^n 1^n 0^n | n \\in \\mathbb{N}\\} \\leq_p 3\\text{-SAT}"
     ],
     "AnswerBools": [
-      true,
       false,
-      true
+      true,
+      false
     ],
     "Explanations": [
-      "The problem would also need to be NP-complete.",
-      "This statement is true."
+      "\\text{The Problem P also needs to be NP-hard (in addition to being in NP)}",
+      "\\text{3-SAT is NP-hard and  } \\{ 010^n | n \\in \\mathbb{N} \\} \\in P \\text{so there exsists a polynoal time algorithm}",
+       "\\text{This already holds.}"
     ]
   },
   {
@@ -382,14 +386,14 @@
       "\\text{ Assume }f(A, \\overline{B}) \\text{ is semi-decidable for all decidable languages }A, B. \\text{ Then }f(\\overline{A}, B) \\text{ is also semi-decidable for all decidable languages }A, B."
     ],
     "AnswerBools": [
-      true,
+      false,
       true,
       true
     ],
     "Explanations": [
-      "This statement is true.",
-      "This statement is true.",
-      "This statement is true."
+      "\\text{}",
+      " f(B,C) = X \\text{which we know has to be a decidable Set,thus f(A,X) is also decidable}",
+      "\\text{Let }A = \\overline{A}, B =\\overline{B} \\text{then }f(A, \\overline{B}) \\equiv f(\\overline{A}, B). \\text{A,B are still decidable languages because of closure under Komplement.}"
     ]
   },
   {
@@ -403,13 +407,13 @@
     ],
     "AnswerBools": [
       false,
-      true,
+      false,
       true
     ],
     "Explanations": [
-      "Rice's theorem.",
-      "This language is decidable.",
-      "φ_{w} is always computable."
+      "\\text{Rice's theorem.}",
+      "\\text{Rice's theorem.}",
+      "φ_{w} \\text{ is always computable.}"
     ]
   },
   {
@@ -417,7 +421,7 @@
     "Question text": "\\text{Let L be an arbitrary undecidable language and } a ∈ Σ. \\text{Which of the following statements are true?}",
     "Exam": "Summer_24",
     "AnswerOptions": [
-      "\\text{ L is undecidable. }",
+      "\\overline{L} \\text{  is undecidable. }",
       "L^{a} \\text{ is undecidable.}",
       "\\text{ There exists no TM M with }L(M) = L."
     ],
@@ -427,9 +431,9 @@
       false
     ],
     "Explanations": [
-      "If L were decidable, L would also be decidable due to closure properties.",
-      "Counterexample: L = {1}H0.",
-      "If L is semi-decidable, there exists one."
+      "\\text{If } \\overline{L} \\text{ were decidable, L would also be decidable due to closure properties.}",
+      "\\text{ Counterexample: }L = {1}H_0.\\text{ then } L^a = \\emptyset",
+      "\\text{ If L is semi-decidable, there exists one. }"
     ]
   },
   {
@@ -448,7 +452,7 @@
     ],
     "Explanations": [
       "\\text{ Otherwise, M would halt on w. }",
-      "It can be, for example, L(M) = ∅.",
+      "\\text{For example: It could be,the TM that never halts with} L(M) = \\emptyset.",
       "L(M) \\text{ is always semi-decidable. You simply input the word and see if it returns.}"
     ]
   },
@@ -457,9 +461,9 @@
     "Question text": "\\text{Which statements are true?}",
     "Exam": "Summer_24",
     "AnswerOptions": [
-      "\\text{If } L ∈ P, \\text{ then } L ∈ NP. \\text{ Even } L ∈ P.",
-      "\\text{ Every regular language is in NP. Even in P.}",
-      "\\text{ Every context-free language is in P. The CYK algorithm needs cubic, i.e., polynomial time to decide the word problem for CFGs.}"
+      "\\text{If } L ∈ P, \\text{ then } \\overline{L} ∈ NP.",
+      "\\text{ Every regular language is in NP.}",
+      "\\text{ Every context-free language is in P}"
     ],
     "AnswerBools": [
       true,
@@ -467,18 +471,18 @@
       true
     ],
     "Explanations": [
-      "This statement is true.",
-      "This statement is true.",
-      "This statement is true."
+      "",
+      "\\text{true, we can  }",
+      "\\text{true, we can check for every word if its part with CYK}"
     ]
   },
   {
     "ID": 25.0,
-    "Question text": "Assume P ≠ NP. Let A, B ⊆ Σ* be arbitrary languages such that A ∈ NP and B is NP-complete. Which statements are true?",
+    "Question text": "\\text{ Assume } P ≠ NP. \\text{ Let A, B } \\subseteq Σ^* \\text{ be arbitrary languages such that } A \\in NP \\text{ and }B \\text{ is NP-complete. Which statements are true?}",
     "Exam": "Summer_24",
     "AnswerOptions": [
-      "A ⊆ B.",
-      "B ⊆ A.",
+      "A \\subseteq B.",
+      "B \\subseteq A.",
       "A ≤_{p} B.",
       "B ≤p A."
     ],
@@ -489,10 +493,10 @@
       false
     ],
     "Explanations": [
-      "This statement is not necessarily true.",
-      "This statement is not necessarily true.",
-      "By definition of NP-complete.",
-      "Counterexamples: A := ∅, B := SAT."
+      "\\text{no reason to be true}",
+      "\\text{no reason to be true}",
+      "\\text{ By definition of NP-complete.}",
+      "\\text{ Counterexamples:} A := \\emptyset, B := \\text{SAT}."
     ]
   },
   {
@@ -510,9 +514,9 @@
       true
     ],
     "Explanations": [
-      "This follows, for example, from the existence of CYK.",
-      "This follows directly from (1).",
-      "This follows directly from (1)."
+      "\\text{With CYK, we can decide for every Words if its part of L or Not!}",
+      "\\text{Decidable Languages are closed under Komplement}",
+      "\\text{Since L is decidable, its also semi-decidable !}"
     ]
   },
   {
@@ -530,9 +534,9 @@
       true
     ],
     "Explanations": [
-      "Closure properties.",
-      "Closure properties.",
-      "For input  w , we go through all decompositions into two subwords."
+      "\\text{decidable languages are closed under Intersection}",
+      "\\equiv L_1 \\cap \\overline{L_2} \\text{closed under Komplement and Intersection!}",
+      "\\text{decidable languages are closed under concatenation}"
     ]
   },
   {
@@ -547,12 +551,12 @@
     "AnswerBools": [
       false,
       true,
-      true
+      false
     ],
     "Explanations": [
-      "Otherwise,  L  could be decided.",
-      " f  is constant, hence computable.",
-      "This statement is true."
+      "\\text{this function decides L, so it cant be computable because L is undecidable}",
+      " \\text{f  is constant, hence computable.}",
+      "\\text{this function decides L, so it cant be computable because L is undecidable}"
     ]
   },
   {
@@ -573,7 +577,7 @@
     ],
     "Explanations": [
       "\\text{Since SAT is NP-complete.}",
-      " \\text{B might be even an even harder Problem: couterexample: H_0},...",
+      " \\text{B might be even an even harder Problem: counterexample:} H_0",
       "\\text{ Since SAT is NP-hard.} ",
       "\\text{To obtain a reduction,simply reduce B to SAT and then to A}"
     ]
@@ -594,8 +598,8 @@
     ],
     "Explanations": [
       " P \\subseteq NP .",
-      "Counterexample  L := \\{G\\#w \\mid G \\text{ CFG} \\wedge w \\notin L(G)\\} .",
-      "The NTM can guess  v ."
+      "\\text{ Counterexample } L := \\{G\\#w \\mid G \\text{ CFG} \\wedge w \\notin L(G)\\} .",
+      "\\text{ The NTM can guess  v .}"
     ]
   }
 ]

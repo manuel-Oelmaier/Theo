@@ -1,49 +1,138 @@
-html {
-    overflow: hidden;
-}
-header {
-    background-color: green;
-    padding: 0;
+/* Reset and global styles */
+* {
     margin: 0;
-    font-size: 30px;
-    text-align: center;
-    width: 100vw;
-    height: 5vh;
+    padding: 0;
+    box-sizing: border-box;
 }
-body {
-    height: 100vh;
-    width: 100vw;
 
+html, body {
+    height: 100%;
+    width: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5;
 }
-main {
-    height: 80vh;
-    width: 80vw;
-    margin: auto;
+
+/* Header styling */
+header {
+    background-color: #2e7d32; /* Darker green for better contrast */
+    color: white;
     text-align: center;
-    overflow: hidden;
+    font-size: 1.5rem;
+    height: 8vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
-#overViewLessons {
-    display: none;
+
+header nav {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
 }
+
+header button {
+    background-color: #ffffff33; /* Slightly transparent white */
+    border: none;
+    padding: 0.3rem 0.5rem;
+    border-radius: 8px;
+    align-self: center;
+    height: 60%;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+header button:hover {
+    background-color: #ffffff66;
+}
+
+main {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    text-align: center;
+}
+
 #exercisesOverViewDiv {
     display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
     justify-content: center;
-}
-#exercisesOverViewDiv button {
-    border: none;
-    padding: 20px;
-    margin: 8px;
-    justify-content: space-evenly;
-    display:block;
+    gap: 15px;
+    margin-bottom: 30px;
 }
 
+#exercisesOverViewDiv button {
+    border: none;
+    padding: 15px 25px;
+    background-color: #43a047;
+    color: white;
+    font-size: 1rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+#exercisesOverViewDiv button:hover {
+    background-color: #66bb6a;
+    transform: translateY(-3px);
+}
+
+/* Question div */
 #questionDiv {
     display: none;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    padding: 40px 20px;
     margin: 0 auto;
-    padding: 10vh;
 }
+
+#questionDiv button {
+    margin: 10px 5px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #2e7d32;
+    color: white;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+#questionDiv button:hover {
+    background-color: #43a047;
+    transform: translateY(-2px);
+}
+
+/* Feedback area */
 #feedback {
     white-space: pre-wrap;
-    font-size: 30px;
-    border: black solid 1px;
+    font-size: 1.2rem;
+    padding: 15px;
+    border: 2px solid #2e7d32;
+    border-radius: 10px;
+    margin-top: 20px;
+    background-color: #e8f5e9;
 }
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    main {
+        width: 95%;
+        padding: 10px;
+    }
+
+    #exercisesOverViewDiv button {
+        width: 80%;
+    }
+
+    #questionDiv {
+        padding: 20px 10px;
+    }
+}
+

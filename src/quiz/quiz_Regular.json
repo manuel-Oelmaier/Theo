@@ -258,7 +258,7 @@
     ],
     "Explanations": [
       "\\text{Counterexample:}",
-      "\\text{Sadly you just need to know this.}",
+      "\\text{Exclusion, one needs to be right}",
       "A ∪ B = B \\text{ just says }A \\subseteq B \\text{ a subset of a regular language doesnt have to be regular,e.g choose }B= \\Sigma^* \\text{and A any contextfree language}"
     ]
   },
@@ -462,6 +462,9 @@
       false
     ],
     "Explanations": [
+      "\\text{by designing the DFA}",
+      "\\text{by designing the DFA}",
+      "\\text{by designing the DFA}",
       "\\text{by designing the DFA}"
     ]
   },

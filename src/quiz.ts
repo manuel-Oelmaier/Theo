@@ -1,7 +1,7 @@
 import katex from 'katex';
 
-import  quiz_regular from './csv/quiz_Regular.json';
-import  quiz_Komplex from './csv/quiz_Komplexität.json';
+import  quiz_regular from './quiz/quiz_Regular.json';
+import  quiz_Komplex from './quiz/quiz_Komplexität.json';
 
 let quiz: Quiz;
 
@@ -40,7 +40,7 @@ class Question {
 
     }
 
-
+//TODO: fix errors with wrong ID:
 //TODO: fix katex rendering not allowing line breaks...
     display(): HTMLElement {
         const examLinks = new Map<string, string>([
@@ -173,7 +173,6 @@ class answeredQuestion {
     }
 }
 
-//TODO: probably better to confert the csv, to a json file , also removes papaParse
 export class Quiz {
     questions : Question[];
     order: number[];
@@ -210,7 +209,7 @@ export class Quiz {
         if (currentID >= this.order.length) {
             // TODO: result screen
         } else {
-            console.log(currentID);
+            console.log("current QuestionID:"+currentID);
             this.displayQuestion(currentID);
         }
     }

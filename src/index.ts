@@ -3,7 +3,6 @@ import {initQuiz, QuizMode} from "./quiz.ts";
 document.getElementById('exerciseButton')!.addEventListener('click', switchToExerciseOverview);
 document.getElementById("regularQuiz")!.addEventListener("click",() => {switchToQuestions('regular');});
 document.getElementById("komplexQuiz")!.addEventListener("click",() => {switchToQuestions('Komplexität');});
-document.getElementById("displayNFA")!.addEventListener("click",switchTodDisplayDFA)
 document.getElementById("showExplanation")!.addEventListener("click",showExplanation);
 
 
@@ -11,12 +10,6 @@ function switchToExerciseOverview() {
     setAllDivsDisplayNone();
     document.getElementById('exercisesOverViewDiv')!.style.display = 'flex';
 
-}
-
-
-
-function switchTodDisplayDFA(){
-    //TODO:
 }
 
 function showExplanation(){
