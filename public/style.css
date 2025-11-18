@@ -113,10 +113,13 @@ main {
     display:none;
 }
 
-.katex-display {
-    overflow-wrap: break-word;
-    word-break: break-word;
+.answer-container {
+    display: flex;
+    align-items: center;  /* vertically centers checkbox and label */
+    gap: 10px;            /* space between checkbox and label */
 }
+
+
 
 /* Feedback area */
 #feedback {

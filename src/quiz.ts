@@ -92,7 +92,7 @@ class Question {
     }
 
 //TODO: fix errors with wrong ID:
-//TODO: fix katex rendering not allowing line breaks...
+//TODO: fix katex rendering not allowing line breaks -> wrapper  ?
     display() {
         const examLinks = new Map<string, string>([
             ["Summer_24 retake", "https://teaching.model.in.tum.de/2024ss/theo/exams/2024_retake_solution.pdf"],
@@ -120,7 +120,8 @@ class Question {
         examLink.textContent = " Exam: " + this.exam;
 
         const questionEl = clone.querySelector(".question-text") as HTMLElement;
-        katex.render(this.questionText, questionEl, {output: "html", displayMode: true});
+        renderSupport(questionEl,this.questionText);
+        //katex.render(this.questionText, questionEl, {output: "htmlAndMathml", displayMode: true});
 
         // Render answers
         const answersContainer = clone.querySelector(".answers") as HTMLElement;
@@ -185,7 +186,40 @@ class Answer {
 
 
 }
+/*
+This function is here because when I give KaTeX the whole thing to render it just overflows
+and I didn't find any way to stop it :) So now we just break it into smaller pieces and try to avoid the problem like that.
+ */
+function renderSupport(container: HTMLElement, content: string) {
 
+    const regex = /\\text\{([^}]*)\}/g;
+    let lastIndex = 0;
+    let match: RegExpExecArray | null;
+
+    while ((match = regex.exec(content)) !== null) {
+        // Append any math before this \text{} block
+        if (match.index > lastIndex) {
+            const mathPart = content.slice(lastIndex, match.index).trim();
+            if (mathPart) {
+                const span = document.createElement("span");
+                katex.render(mathPart, span, {output: "html", displayMode: false});
+                container.appendChild(span);
+            }
+        }
+        const textPart = match[1];
+        container.appendChild(document.createTextNode(textPart));
+
+        lastIndex = match.index + match[0].length;
+    }
+        if (lastIndex < content.length) {
+            const remainingMath = content.slice(lastIndex).trim();
+            if (remainingMath) {
+                const span = document.createElement("span");
+                katex.render(remainingMath, span, {output: "html", displayMode: false});
+                container.appendChild(span);
+            }
+        }
+}
 
 class answeredQuestion {
     question: Question;
