@@ -1,6 +1,6 @@
 [
   {
-    "ID": 1.0,
+    "ID": 0.0,
     "Question text": "\\text{Which of the following languages are decidable?}",
     "Exam": "Summer_22",
     "AnswerOptions": [
@@ -17,7 +17,7 @@
     ]
   },
   {
-    "ID": 2.0,
+    "ID": 1.0,
     "Question text": "\\text{For which of the following languages does there exist a } v \\in Σ^{*}\\text{ such that they are decidable?}",
     "Exam": "Summer_22",
     "AnswerOptions": [
@@ -37,7 +37,7 @@
     ]
   },
   {
-    "ID": 3.0,
+    "ID": 2.0,
     "Question text": "\\text{Let }L \\subseteq Σ^* \\text{ be finite. Which of the following languages are semi-decidable?}",
     "Exam": "Summer_22",
     "AnswerOptions": [
@@ -57,7 +57,7 @@
     ]
   },
   {
-    "ID": 4.0,
+    "ID": 3.0,
     "Question text": "\\text{Is there a regular language }L ∈ NP?",
     "Exam": "Summer_22",
     "AnswerOptions": [
@@ -77,7 +77,7 @@
     ]
   },
   {
-    "ID": 5.0,
+    "ID": 4.0,
     "Question text": "\\text{For the NP-complete problem SAT, which of the following variants of SAT are NP-complete, assuming } P \\neq NP?",
     "Exam": "Summer_22",
     "AnswerOptions": [
@@ -97,11 +97,11 @@
     ]
   },
   {
-    "ID": 6.0,
+    "ID": 5.0,
     "Question text": "\\text{Which of the following languages are decidable?}",
     "Exam": "Summer_22 retake",
     "AnswerOptions": [
-      "\\{w ∈ Σ^*: L(M_{w}) \\text{ is semi-decidable\\}}",
+      "\\{w ∈ Σ^*: L(M_{w}) \\text{ is semi-decidable}\\}",
       "\\{w ∈ Σ^{*}: L(M_{w}) = ∅\\}",
       "\\{w ∈ Σ^*: L(M_{w}) \\text{is decidable}\\}"
     ],
@@ -117,7 +117,7 @@
     ]
   },
   {
-    "ID": 7.0,
+    "ID": 6.0,
     "Question text": "\\text{Which of the following statements are true?}",
     "Exam": "Summer_22 retake",
     "AnswerOptions": [
@@ -137,7 +137,7 @@
     ]
   },
   {
-    "ID": 8.0,
+    "ID": 7.0,
     "Question text": "\\text{Which of the following statements are true? }",
     "Exam": "Summer_22 retake",
     "AnswerOptions": [
@@ -157,13 +157,13 @@
     ]
   },
   {
-    "ID": 9.0,
+    "ID": 8.0,
     "Question text": "\\text{For the NP-complete problem SAT, which of the following variants of SAT are NP-complete, assuming } P \\neq NP?",
     "Exam": "Summer_22 retake",
     "AnswerOptions": [
-      "\\text{The formula F is in conjunctive normal form, i.e., it has the form } F1 ∧ … ∧ Fm, \\text{ where each Fi has the form } y_1 ∨ … ∨ y_i\\text{ and }  y_1, …, y_i \\text{ are literals.}",
-      "\\text{ The formula F contains each variable} x_{i} \\text{at most 2022 times.}",
-      "\\text{The formula F is in disjunctive normal form, i.e., it has the form }F_1 ∨ … ∨ F_m,\\text{ where each Fi has the form }y_1 ∧ … ∧ y_i \\text{ and }y_1, …, y_i\\text{ are literals.}"
+      "\\text{The formula F is in conjunctive normal form, i.e., it has the form } F_1 \\wedge \\dots \\wedge F_m, \\text{ where each } F_i \\text{ has the form } y_1 \\vee \\dots \\vee y_i \\text{ and } y_1, \\dots, y_i \\text{ are literals.}",
+      "\\text{The formula F contains each variable } x_i \\text{ at most 2022 times.}",
+      "\\text{The formula F is in disjunctive normal form, i.e., it has the form } F_1 \\vee \\dots \\vee F_m, \\text{ where each } F_i \\text{ has the form } y_1 \\wedge \\dots \\wedge y_i \\text{ and } y_1, \\dots, y_i \\text{ are literals.}"
     ],
     "AnswerBools": [
       true,
@@ -171,14 +171,14 @@
       false
     ],
     "Explanations": [
-      "\\text{ Theorem 6.22.}",
-      "\\text{ For a variable x that occurs more frequently, every second occurrence is replaced by the new variable x', and we consider the new formula } F ∧ (¬x ∨ x') ∧ (¬x' ∨ x).\\text{  We repeat this until the condition is met.}",
-      "\\text{ F is satisfiable if one of the } F_i \\text{ is. The latter can be easily verified.}"
+      "\\text{Theorem 6.22.}",
+      "\\text{For a variable x that occurs more frequently, every second occurrence is replaced by a new variable x', and we consider the new formula } F \\wedge (\\neg x \\vee x') \\wedge (\\neg x' \\vee x)\\text{. We repeat this until the condition is met.}",
+      "\\text{F is satisfiable if one of the } F_i \\text{ is. The latter can be easily verified.}"
     ]
   },
   {
-    "ID": 10.0,
-    "Question text": "\\text{Let }\\{M := {L ⊆ Σ^{*}: L ≤_{p} SAT\\}\\text{ be the set of languages that can be reduced to SAT in polynomial time. Which of the following statements are true?} ",
+    "ID": 9.0,
+    "Question text": "\\text{Let } M := \\{L ⊆ Σ^{*}: L ≤_{p} SAT \\} \\text{ be the set of languages that can be reduced to SAT in polynomial time. Which of the following statements are true?} ",
     "Exam": "Summer_22 retake",
     "AnswerOptions": [
       "If P \\neq NP, \\text{ then there exists a language } L ∈ M \\text{ that cannot be decided by any Turing machine in polynomial time.}",
@@ -197,8 +197,8 @@
     ]
   },
   {
-    "ID": 11.0,
-    "Question text": "\\text{Let } f: \\Sigma^{*} \\rightarrow \\Sigma^{*} \\text{ be a computable, partial function. The graph of  f  is the set} \\{(w, f(w)) | w \\in \\Sigma^{*}, f(w) \\neq \\perp\\}.",
+    "ID": 10.0,
+    "Question text": "\\text{Let } f: \\Sigma^{*} \\rightarrow \\Sigma^{*} \\text{ be a computable, partial function. The graph of  f  is the set } \\{ (w, f(w)) | w \\in \\Sigma^{*}, f(w) \\neq \\perp \\}.",
     "Exam": "Summer_23",
     "AnswerOptions": [
       "\\text{The complement of Graph(f) is semi-decidable.}",
@@ -211,13 +211,13 @@
       true
     ],
     "Explanations": [
-      "\\text{were it also semi-decidable, we could decide Graph(f),which we can´t}",
-      "\\text{this implies we can check if a word isn´t in it,which we can´t because of the halting problem}",
+      "\\text{were it also semi-decidable, we could decide Graph(f),which we can't}",
+      "\\text{this implies we can check if a word isn't in it,which we can't because of the halting problem }",
       "\\text{Given word w: we can simply calculate f(w) and get confirmation.}"
     ]
   },
   {
-    "ID": 12.0,
+    "ID": 11.0,
     "Question text": "\\text{Let } \\Sigma := \\{a, b\\} \\text{ and let L} \\subseteq \\Sigma^{*}. \\text{Which of the following statements are true?}",
     "Exam": "Summer_23",
     "AnswerOptions": [
@@ -237,7 +237,7 @@
     ]
   },
   {
-    "ID": 13.0,
+    "ID": 12.0,
     "Question text": "\\text{Let } \\Sigma \\text{ be an alphabet. Let } \\mathcal{K} \\text{ be the set of all context-free grammars with terminals from } \\Sigma.\\text{ Given a language }L \\subseteq \\Sigma^{*}, let \\min(L)\\text{ be the set of shortest words in L. Which of the following sets are decidable?}",
     "Exam": "Summer_23",
     "AnswerOptions": [
@@ -257,7 +257,7 @@
     ]
   },
   {
-    "ID": 14.0,
+    "ID": 13.0,
     "Question text": "\\text{Let }A, B \\text{be languages over the same alphabet} \\Sigma.\\text{Which of the following statements are true?} ",
     "Exam": "Summer_23",
     "AnswerOptions": [
@@ -277,7 +277,7 @@
     ]
   },
   {
-    "ID": 15.0,
+    "ID": 14.0,
     "Question text": "\\text{Reminder: A family of languages is a set of sets. Choose all statements that apply. Note in particular that every decidable set is also semi-decidable.}",
     "Exam": "Summer_23",
     "AnswerOptions": [
@@ -297,7 +297,7 @@
     ]
   },
   {
-    "ID": 16.0,
+    "ID": 15.0,
     "Question text": "\\text{Which of the following problems are decidable?}",
     "Exam": "Summer_23 retake",
     "AnswerOptions": [
@@ -317,7 +317,7 @@
     ]
   },
   {
-    "ID": 17.0,
+    "ID": 16.0,
     "Question text": "\\text{Let }\\Sigma := \\{0, 1\\}. \\text{Which of the following languages are undecidable?}",
     "Exam": "Summer_23 retake",
     "AnswerOptions": [
@@ -337,7 +337,7 @@
     ]
   },
   {
-    "ID": 18.0,
+    "ID": 17.0,
     "Question text": "\\text{Let }A, B, C \\text{ be languages over the same alphabet }\\Sigma. \\text{ Which of the following statements are true?}",
     "Exam": "Summer_23 retake",
     "AnswerOptions": [
@@ -357,7 +357,7 @@
     ]
   },
   {
-    "ID": 19.0,
+    "ID": 18.0,
     "Question text": "\\text{From which of the following statements would } P = NP \\text{ follow?}",
     "Exam": "Summer_23 retake",
     "AnswerOptions": [
@@ -377,7 +377,7 @@
     ]
   },
   {
-    "ID": 20.0,
+    "ID": 19.0,
     "Question text": "\\text{Let }\\Sigma \\text{ be an alphabet. Let }f: \\mathcal{P}(\\Sigma^{*}) \\times \\mathcal{P}(\\Sigma^{*}) \\rightarrow \\mathcal{P}(\\Sigma^{*}) \\text{ be a function from pairs of languages to languages. Choose all statements that apply.}",
     "Exam": "Summer_23 retake",
     "AnswerOptions": [
@@ -397,7 +397,7 @@
     ]
   },
   {
-    "ID": 21.0,
+    "ID": 20.0,
     "Question text": "\\text{Which of the following languages are decidable?}",
     "Exam": "Summer_24",
     "AnswerOptions": [
@@ -417,7 +417,7 @@
     ]
   },
   {
-    "ID": 22.0,
+    "ID": 21.0,
     "Question text": "\\text{Let L be an arbitrary undecidable language and } a ∈ Σ. \\text{Which of the following statements are true?}",
     "Exam": "Summer_24",
     "AnswerOptions": [
@@ -437,7 +437,7 @@
     ]
   },
   {
-    "ID": 23.0,
+    "ID": 22.0,
     "Question text": "\\text{Let M be an arbitrary deterministic Turing machine such that there exists an input } w ∈ Σ^{*} \\text{on which M makes infinitely many steps. Which statements are true}?",
     "Exam": "Summer_24",
     "AnswerOptions": [
@@ -457,7 +457,7 @@
     ]
   },
   {
-    "ID": 24.0,
+    "ID": 23.0,
     "Question text": "\\text{Which statements are true?}",
     "Exam": "Summer_24",
     "AnswerOptions": [
@@ -477,7 +477,7 @@
     ]
   },
   {
-    "ID": 25.0,
+    "ID": 24.0,
     "Question text": "\\text{ Assume } P ≠ NP. \\text{ Let A, B } \\subseteq Σ^* \\text{ be arbitrary languages such that } A \\in NP \\text{ and }B \\text{ is NP-complete. Which statements are true?}",
     "Exam": "Summer_24",
     "AnswerOptions": [
@@ -500,7 +500,7 @@
     ]
   },
   {
-    "ID": 26.0,
+    "ID": 25.0,
     "Question text": "\\text{Let } L \\text{ be a context-free language. Which statements are true?}",
     "Exam": "Summer_24 retake",
     "AnswerOptions": [
@@ -520,7 +520,7 @@
     ]
   },
   {
-    "ID": 27.0,
+    "ID": 26.0,
     "Question text": "\\text{Let } L_1, L_2 \\subseteq \\Sigma^{*} \\text{be decidable languages. Which of the following languages are decidable?} ",
     "Exam": "Summer_24 retake",
     "AnswerOptions": [
@@ -540,7 +540,7 @@
     ]
   },
   {
-    "ID": 28.0,
+    "ID": 27.0,
     "Question text": "\\text{Let } L \\subseteq \\{0\\}^{*}  \\text{be undecidable. Which of the following functions } f: \\mathbb{N} \\rightarrow \\mathbb{N} \\text{ are computable? }",
     "Exam": "Summer_24 retake",
     "AnswerOptions": [
@@ -560,7 +560,7 @@
     ]
   },
   {
-    "ID": 29.0,
+    "ID": 28.0,
     "Question text": "\\text{Let } A, B \\subseteq \\Sigma^{*} \\text{ be languages with } A \\leq_p \\text{SAT} \\leq_p B .\\text{ Which statements are true?}",
     "Exam": "Summer_24 retake",
     "AnswerOptions": [
@@ -583,7 +583,7 @@
     ]
   },
   {
-    "ID": 30.0,
+    "ID": 29.0,
     "Question text": "\\text{Let } L \\subseteq \\Sigma^{*} \\{\\#\\} \\Sigma^{*} \\text{ be a language such that } L \\in \\text{P} ;  L \\text{ thus contains words of the form }   u\\#v ,\\text{ with }   u, v \\in \\Sigma^{*} .\\text{ Which of the following languages are in NP?}",
     "Exam": "Summer_24 retake",
     "AnswerOptions": [

@@ -55,7 +55,7 @@
     ],
     "Explanations": [
       "\\text{ This is }L^R L; \\text{ regular Languages are closed under concatenation}",
-      "\\text{ Counterexample:} L = \\Sigma^* \\text{ Then L is the Language of palindromes which isn't regular! }\\",
+      "\\text{ Counterexample:} L = \\Sigma^* \\text{ Then L is the Language of palindromes which isn't regular! \\}",
       "\\text{ e.g Be L} = (ba*). \\text{ Then the language is} \\{ baⁿbaⁿ | n ∈ ℕ \\}, \\text{ which is not regular.}"
     ]
   },
@@ -299,7 +299,7 @@
     "Explanations": [
       "\\text{L contains no word starting either with }ab\\#bb\\text{ nor with }a\\#b \\text{so the residual languages is }\\emptyset",
       "\\text{L contains no word starting either with }aba\\#ba\\text{ nor with }ab\\#ba",
-      "\\text{L contains no word starting either with }ab\\#\\text{ nor with }ba\\#"
+      "\\text{L contains no word starting either with } ab\\# \\text{ nor with }ba\\#"
     ]
   },
   {
@@ -359,7 +359,10 @@
       false
     ],
     "Explanations": [
-      "V = Q × Q × Γ × ∪ {S}"
+      "",
+      "",
+      "V = Q × Q × Γ × ∪ {S}",
+      ""
     ]
   },
   {
