@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title> Theoretical Informatics  </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="/style.css">
     <script src="/src/index.js" defer type="module"></script>
     <script src="/src/questions.js" defer type="module"></script>
@@ -11,7 +13,7 @@
 <body>
 <header>
     <nav>
-        <button id="exerciseButton">Menu</button>
+        <button id="exerciseButton">Home</button>
         Theoretical Informatics practice
     </nav>
 
@@ -23,7 +25,9 @@
 
         <p> This website has every Multiple choice Question of the past Exams of "Introduction to theoretical Informatics"(IN0011)
             from <abbr title="Technical University Munich ">TUM</abbr>. Additionally, explanations are provided, sometimes by the Instructors
-        and sometimes from myself (not every exam has usefully explanations). The questions order is randomized.</p>
+            and sometimes from myself (not every exam has usefully explanations). The questions order is randomized.
+            If you spot any errors,please check the linked exam and then submit an issue with the questionID.
+        </p>
 
         <button id="regularQuiz">Quiz: regular und contextfree Languages</button>
 
@@ -56,17 +60,28 @@
             </div>
         </template>
 
+        <template id="quiz-end-template">
+            <div class="quiz-end">
+                <h2>Your Results</h2>
+                <p id="score-text"></p>
+                <button id="restart-btn">Restart Quiz</button>
+                <button id="other-Quiz">other Quiz</button>
+            </div>
+        </template>
+
         <!-- This div will be replaced with the content of the template each time-->
         <div id="replace"></div>
 
+        <div id="quiz-Utility">
+            <div id="feedback"></div>
+            <button id="checkAnswersButton">check</button>
+            <button id="nextQuestionButton">next Question</button>
+            <button id="showExplanation">show Explanation</button>
+            <a href="https://github.com/Lohtharr/Theo/issues" target="_blank">
+                <button id="errorReportQuestionButton">Submit an issue with this question!</button>
+            </a>
+        </div>
 
-        <div id="feedback"></div>
-        <button id="checkAnswersButton">check</button>
-        <button id="nextQuestionButton">next Question</button>
-        <button id="showExplanation">show Explanation</button>
-        <a href="https://github.com/Lohtharr/Theo/issues" target="_blank">
-            <button id="errorReportQuestionButton">Submit an issue with this question!</button>
-        </a>
     </div>
 
 </main>

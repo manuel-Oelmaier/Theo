@@ -8,7 +8,6 @@ The Goal is making a better learning experience and so helping students pass one
 ## Features
 - Quiz with past questions about regular and context free Languages
 - Quiz with past questions about computation complexity and decidablity
-- more coming soon.
 
   ***
   ## Contributions

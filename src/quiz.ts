@@ -1,5 +1,4 @@
 import katex from 'katex';
-
 import quiz_regular from './quiz/quiz_Regular.json';
 import quiz_Komplex from './quiz/quiz_Complexity.json';
 
@@ -9,6 +8,7 @@ export type QuizMode = 'regular' | 'Komplexität';
 
 export function initQuiz(quiztype: QuizMode) {
     quiz = new Quiz(quiztype);
+    showQuizUtilityButtons();
 }
 
 
@@ -25,8 +25,10 @@ export class Quiz {
     questions: Question[];
     order: number[];
     questionNumber: number;
+    quizType: QuizMode;
 
     constructor(mode: QuizMode,) {
+        this.quizType = mode;
         if (mode === "regular") {
             this.questions = quiz_regular.map(raw => new Question(raw));
         } else {
@@ -38,7 +40,6 @@ export class Quiz {
 
         this.nextQuestion();
     }
-    // TODO fix skipping first question of order
 
     createQuestionOrder() {
         let questionIDs = Array.from({length: this.questions.length}, (_, i) => i);
@@ -53,9 +54,8 @@ export class Quiz {
     nextQuestion() {
         let currentID = this.order[this.questionNumber];
         if (this.questionNumber >= this.order.length) {
-            // TODO: result screen
+            showResults();
         } else {
-            console.log("current QuestionID:" + currentID);
             this.displayQuestion(currentID);
         }
 
@@ -75,7 +75,15 @@ export class Quiz {
         let currentID = this.order[this.questionNumber];
         this.questions[currentID].checkAnswers();
     }
-
+    getRightQuestions() : number{
+        let count = 0;
+        for (let i = 1; i < this.questions.length; i++) {
+            if(this.questions[i].getUserAnswers()){
+                count++;
+            }
+        }
+        return count;
+    }
 
 }
 
@@ -85,19 +93,20 @@ class Question {
     questionText: string;
     answers: Answer[];
     exam: string;
+    useranswer:boolean;
 
     constructor(raw: RawQuestion) {
         this.id = raw.ID;
         this.questionText = raw["Question text"]; // handle key with space
         this.exam = raw.Exam;
         this.answers = [];
+        this.useranswer= false;
         for (let i = 0; i < raw.AnswerOptions.length; i++) {
             this.answers.push(new Answer(raw.AnswerOptions[i], raw.AnswerBools[i], raw.Explanations[i]));
         }
 
     }
 
-//TODO: fix errors with wrong ID ????
     display() {
         const examLinks = new Map<string, string>([
             ["Summer_24 retake", "https://teaching.model.in.tum.de/2024ss/theo/exams/2024_retake_solution.pdf"],
@@ -147,7 +156,7 @@ class Question {
                 message += `Answer ${i + 1} was: ${answer.checked} but expected: ${this.answers[i].getRight()}\n`;
             }
         }
-
+        this.useranswer = correctAnswer;
 
         if (correctAnswer) {
             document.getElementById("feedback")!.textContent = "Correct!\n" + message
@@ -158,6 +167,10 @@ class Question {
 
         }
     }
+    getUserAnswers(): boolean {
+        return this.useranswer;
+    }
+
 }
 
 class Answer {
@@ -179,7 +192,6 @@ class Answer {
         const tmpl = document.getElementById("answerTemplate") as HTMLTemplateElement;
         const clone = tmpl.content.cloneNode(true) as HTMLElement;
 
-        const input = clone.querySelector(".answer-input") as HTMLInputElement;
         const label = clone.querySelector(".answer-label") as HTMLElement;
         const explanation = clone.querySelector(".explanation") as HTMLElement;
 
@@ -225,17 +237,7 @@ function renderSupport(container: HTMLElement, content: string) {
         }
 }
 
-class answeredQuestion {
-    question: Question;
-    givenAnswers: number[];
-    correct: boolean;
 
-    constructor(question: Question, givenAnswers: number[] = [], correct: boolean) {
-        this.question = question;
-        this.givenAnswers = givenAnswers;
-        this.correct = correct;
-    }
-}
 
 
 document.getElementById('nextQuestionButton')!.addEventListener('click', () => {
@@ -252,6 +254,43 @@ function showExplanation() {
         explanations[i].style.display = "flex";
     }
 }
+
+function showResults() {
+    const replaceDiv = document.getElementById("replace") as HTMLElement;
+    replaceDiv.innerHTML = "";
+
+    const tmpl = document.getElementById("quiz-end-template") as HTMLTemplateElement;
+    const clone = tmpl.content.cloneNode(true) as DocumentFragment;
+
+    // Append clone first so IDs exist in the DOM
+    replaceDiv.appendChild(clone);
+
+    const scoreText = replaceDiv.querySelector('#score-text') as HTMLElement;
+    scoreText.innerHTML = `You got ${quiz.getRightQuestions()} out of ${quiz.questions.length} Questions correct!`;
+
+    const restartBtn = replaceDiv.querySelector('#restart-btn') as HTMLButtonElement;
+    const otherBtn = replaceDiv.querySelector('#other-Quiz') as HTMLButtonElement;
+
+    if (quiz.quizType === "regular") {
+        restartBtn.addEventListener('click', () => initQuiz("regular"));
+        otherBtn.addEventListener('click', () => initQuiz("Komplexität"));
+    } else {
+        restartBtn.addEventListener('click', () => initQuiz("Komplexität"));
+        otherBtn.addEventListener('click', () => initQuiz("regular"));
+    }
+
+    hideQuizUtilityButtons();
+    document.getElementById('progress-container')!.innerHTML="";
+}
+
+function hideQuizUtilityButtons(){
+    document.getElementById('quiz-Utility')!.style.display = "none";
+}
+function showQuizUtilityButtons() {
+    document.getElementById('quiz-Utility')!.style.display = "block";
+}
+
+
 
 document.getElementById("showExplanation")!.addEventListener("click", showExplanation);
 

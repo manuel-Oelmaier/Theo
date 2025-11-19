@@ -17,7 +17,7 @@ function switchToExerciseOverview() {
 
 function switchToQuestions(quiztype: QuizMode) {
     setAllDivsDisplayNone();
-    document.getElementById('questionDiv')!.style.display = 'block';
+    document.getElementById('questionDiv')!.style.display = 'flex';
     initQuiz(quiztype);
 }
 
@@ -28,4 +28,6 @@ function setAllDivsDisplayNone() {
     }
 }
 
+//TODO: cleanup css: better wrong/right animations
+//TODO: rewrite into clean Model,View,Controller logic
 
