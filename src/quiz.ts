@@ -125,13 +125,7 @@ class Question {
         const tmpl = document.getElementById("questionTemplate") as HTMLTemplateElement;
         const clone = tmpl.content.cloneNode(true) as HTMLElement;
 
-        // Fill in question info
-        const idEl = clone.querySelector(".question-id") as HTMLElement;
-        idEl.textContent = "Question ID: " + this.id;
 
-        const examLink = clone.querySelector(".exam-link") as HTMLAnchorElement;
-        examLink.href = examLinks.get(this.exam)!;
-        examLink.textContent = " Exam: " + this.exam;
 
         const questionEl = clone.querySelector(".question-text") as HTMLElement;
         renderSupport(questionEl,this.questionText);
@@ -141,6 +135,14 @@ class Question {
 
         // Append the fully populated clone
         replaceDiv.appendChild(clone);
+
+        // Fill in question info at the
+        const idEl = document.querySelector(".question-id") as HTMLElement;
+        idEl.textContent = "Question ID: " + this.id;
+
+        const examLink = document.querySelector(".exam-link") as HTMLAnchorElement;
+        examLink.href = examLinks.get(this.exam)!;
+        examLink.textContent = " Exam: " + this.exam;
 
     }
 
